@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="keyboardTheme">
+        <item name="android:background">@color/colorKeyBackgroundDefault</item>
+        <item name="android:textColor">@color/colorKeyContentPrimaryDefault</item>
+    </style>
 </resources>

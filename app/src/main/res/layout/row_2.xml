@@ -1,0 +1,550 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <!--Key 1-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="៖"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="("
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/double_quote_sign"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=")"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+           />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 2-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អា"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អិ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="អឹ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អឺ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:text="អឹ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 3-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អុ"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អូ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="4dp"
+            android:text="អួ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 4-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អើ"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="អឿ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="អៀ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 5-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ក"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ខ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="4dp"
+            android:text="គ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ឃ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:text="ង"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 6-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ច"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ឆ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="4dp"
+            android:text="ជ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ឈ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:text="ញ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 7-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ដ"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ឋ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="4dp"
+            android:text="ឌ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ឍ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:text="ណ"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <!--Key 8-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/keyDefaultHeight"
+        android:layout_weight="1"
+
+        android:background="@color/colorKeyBackgroundDefault">
+        <!--Primary-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:text="ៗ"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            android:textSize="@dimen/keyContentPrimarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Secondary-->
+        <!--Top-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Right-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Bottom-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <!--Left-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            android:textSize="@dimen/keyContentSecondarySize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -1,0 +1,328 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Key1-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_0"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="១"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="1"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key2-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_1"
+
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="២"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="2"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key3-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_2"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៣"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="3"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key4-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_3"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៤"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="4"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key5-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_4"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៥"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="5"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key6-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_5"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៦"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="6"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key7-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_6"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៧"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="7"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key8-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_7"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៨"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="8"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key9-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_8"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="៩"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="9"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <!--Key0-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/keyBtnRow0_9"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorKeyBackgroundDefault"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="០"
+            android:textSize="@dimen/keyContentPrimarySize"
+            android:textColor="@color/colorKeyContentPrimaryDefault"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="0"
+            android:textSize="@dimen/keyContentSecondarySize"
+            android:textColor="@color/colorKeyContentSecondaryDefault"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

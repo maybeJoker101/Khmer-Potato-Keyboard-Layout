@@ -2,19 +2,25 @@ package com.namae0Two.khmeralternativekeyboard;
 
 import android.inputmethodservice.InputMethodService;
 import android.view.View;
+import android.view.inputmethod.InputConnection;
 import android.widget.LinearLayout;
 
 public class KhmerKeyboardService extends InputMethodService {
 
-    private LinearLayout keyboardLayout;
+    private LinearLayout mKeyboardLayout;
 
+
+    private Keyboard mKeyboard;
 
     @Override
     public View onCreateInputView() {
 
-        keyboardLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.keyboard_layout,null);
+        mKeyboardLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.keyboard_layout,null);
 
-        return keyboardLayout;
+
+        mKeyboard = new Keyboard(mKeyboardLayout,this);
+
+        return mKeyboardLayout;
     }
 
 
