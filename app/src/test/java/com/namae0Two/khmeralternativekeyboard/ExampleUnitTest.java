@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard;
 
-import com.namae0Two.khmeralternativekeyboard.data.CharacterButtonData;
+import com.namae0Two.khmeralternativekeyboard.data.ButtonData;
+import com.namae0Two.khmeralternativekeyboard.data.ButtonType;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class ExampleUnitTest {
 
     @Test
     public void characterButtonDataTest(){
-        CharacterButtonData b = new CharacterButtonData();
+        ButtonData b = new ButtonData(ButtonType.ALPHABET_TYPE,40);
         //Initialization
         assertEquals("",b.getBottom());
         assertEquals("",b.getTop());
@@ -33,7 +34,7 @@ public class ExampleUnitTest {
 
         assertEquals("A",b.getMiddle());
         assertEquals("B",b.getRight());
-        assertEquals(b.getAll().size(),2);
+        assertEquals(b.getAllChars().size(),2);
 
 
 

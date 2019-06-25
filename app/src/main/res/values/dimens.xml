@@ -3,4 +3,14 @@
     <dimen name="keyContentPrimarySize">16sp</dimen>
     <dimen name="keyContentSecondarySize">10sp</dimen>
     <dimen name="keyDefaultHeight">50dp</dimen>
+    <dimen name="leftAndRightKeyButtonMargin">4dp</dimen>
+    <dimen name="popup_marginStartEnd">8dp</dimen>
+    <dimen name="popup_otherTextSize">16sp</dimen>
+    <dimen name="popup_middleNormalSize">20sp</dimen>
+    <dimen name="popup_middleBigSize">24sp</dimen>
+
+    <integer name="keyContentPrimarySizeNoUnit">16</integer>
+    <integer name="keyContentSecondarySizeNoUnit">10</integer>
+    <integer name="keyDefaultHeightNoUnit">50</integer>
+    <integer name="leftAndRightKeyButtonMarginNoUnit">4</integer>
 </resources>
