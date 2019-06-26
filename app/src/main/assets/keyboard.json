@@ -3,7 +3,7 @@
   "rows" : [
 
     {
-      "height" : 150,
+      "height" : 50,
       "buttons": [
         {
           "buttonType": 1,
@@ -96,8 +96,279 @@
           "left":""
         }
       ]
+    },
+    {
+      "height" : 60,
+      "buttons" : [
+        {
+          "buttonType" : 1,
+          "weight" : 1,
+          "middle" : "៖",
+          "top" : "(",
+          "right" : "\"",
+          "bottom" : ")",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ា",
+          "top" : "ិ",
+          "right" : "ី",
+          "bottom" : "ឹ",
+          "left" : "ឺ"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ុ",
+          "top" : "ូ",
+          "right" : "ួ",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ើ",
+          "top" : "ឿ",
+          "right" : "ៀ",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ក",
+          "top" : "ខ",
+          "right" : "គ",
+          "bottom" : "ឃ",
+          "left" : "ង"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ច",
+          "top" : "ឆ",
+          "right" : "ជ",
+          "bottom" : "ឈ",
+          "left" : "ញ"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ដ",
+          "top" : "ឋ",
+          "right" : "ឌ",
+          "bottom" : "ឍ",
+          "left" : "ណ"
+        },
+        {
+          "buttonType" : 1,
+          "weight" : 1,
+          "middle" : "ៗ",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        }
+      ]
+    },
+    {
+      "height" : 60,
+      "buttons" : [
+        {
+          "buttonType" : 1,
+          "weight" : 1,
+          "middle" : ".",
+          "top" : "៛",
+          "right" : ",",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "េ",
+          "top" : "ែ",
+          "right" : "ៃ",
+          "bottom" : "ោ",
+          "left" : "ៅ"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ុំ",
+          "top" : "ំ",
+          "right" : "ាំ",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ះ",
+          "top" : "ុះ",
+          "right" : "េះ",
+          "bottom" : "ោះ",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ត",
+          "top" : "ថ",
+          "right" : "ទ",
+          "bottom" : "ធ",
+          "left" : "ណ"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ប",
+          "top" : "ផ",
+          "right" : "ព",
+          "bottom" : "ភ",
+          "left" : "ម"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "យ",
+          "top" : "រ",
+          "right" : "ល",
+          "bottom" : "វ",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ឥ",
+          "top" : "ឦ",
+          "right" : "",
+          "bottom" : "ឩ",
+          "left" : "ឯ"
+        }
+      ]
+    },
+    {
+      "height" : 60,
+      "buttons" : [
+        {
+          "buttonType" : 1,
+          "weight" : 1,
+          "middle" : "។",
+          "top" : "៕",
+          "right" : "?",
+          "bottom" : "៘",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ៈ",
+          "top" : "៎",
+          "right" : "៑",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "់",
+          "top" : "៌",
+          "right" : "៍",
+          "bottom" : "៏",
+          "left" : "័"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "៉",
+          "top" : "៊",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ស",
+          "top" : "ហ",
+          "right" : "ឡ",
+          "bottom" : "អ",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ឧ",
+          "top" : "ឪ",
+          "right" : "ឱ",
+          "bottom" : "ឳ",
+          "left" : "ឲ"
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "ឫ",
+          "top" : "ឫ",
+          "right" : "ឭ",
+          "bottom" : "ឮ",
+          "left" : "ឰ"
+        },
+        {
+          "buttonType" : 2,
+          "weight" : 1,
+          "middle" : "⌫",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        }
+      ]
+    },
+    {
+      "height" : 60,
+      "buttons" : [
+        {
+          "buttonType" : 5,
+          "weight" : 1,
+          "middle" : "⌨",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 0,
+          "weight" : 1,
+          "middle" : "្",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 4,
+          "weight" : 4,
+          "middle" : "ខ្មែរ",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        },
+        {
+          "buttonType" : 3,
+          "weight" : 2,
+          "middle" : "↵",
+          "top" : "",
+          "right" : "",
+          "bottom" : "",
+          "left" : ""
+        }
+      ]
     }
-
 
   ]
 }

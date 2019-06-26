@@ -9,7 +9,7 @@ import com.namae0Two.khmeralternativekeyboard.view.KeyboardView;
 
 public class KhmerKeyboardService extends InputMethodService {
 
-    private LinearLayout mKeyboardLayout;
+    private KeyboardView mKeyboardLayout;
 
 
 
@@ -22,5 +22,13 @@ public class KhmerKeyboardService extends InputMethodService {
         return mKeyboardLayout;
     }
 
+    @Override
+    public void onComputeInsets(Insets outInsets) {
+        super.onComputeInsets(outInsets);
 
+        //this set to enable popup window top of the keyboardl ayout by pass touch through the top
+        //placeholder view
+        outInsets.visibleTopInsets = mKeyboardLayout.getKeyboardContent().getTop();
+        outInsets.contentTopInsets = mKeyboardLayout.getKeyboardContent().getTop();
+    }
 }

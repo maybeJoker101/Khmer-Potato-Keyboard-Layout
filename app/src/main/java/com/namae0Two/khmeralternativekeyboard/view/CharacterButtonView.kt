@@ -1,15 +1,11 @@
 package com.namae0Two.khmeralternativekeyboard.view
 
 import android.content.Context
-import android.content.Context.LAYOUT_INFLATER_SERVICE
-import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
 import com.namae0Two.khmeralternativekeyboard.data.ButtonData
@@ -126,7 +122,7 @@ class CharacterButtonView(context: Context?, var buttonData: ButtonData, var row
         topParams.startToStart = id
         topParams.topToTop = id
         topParams.endToEnd = id
-
+        topParams.topMargin = startEndMargin.toInt()
 
         //Right
         val rightParams = rightText.layoutParams as LayoutParams
@@ -140,6 +136,7 @@ class CharacterButtonView(context: Context?, var buttonData: ButtonData, var row
         bottomParams.startToStart = id
         bottomParams.endToEnd = id
         bottomParams.bottomToBottom = id
+        bottomParams.bottomMargin = startEndMargin.toInt()
 
 
         //Left
@@ -152,36 +149,13 @@ class CharacterButtonView(context: Context?, var buttonData: ButtonData, var row
     }
 
 
-    fun changeBackground(touch:Boolean,context:Context){
-
-        if (touch) {
+    fun changeBackground(pressed:Boolean){
+        if (pressed) {
             setBackgroundResource(R.color.colorKeyBackgroundDefaultClicked)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                elevation = 5.0f
-            }
         }
-        else if (!touch){
+        else if (!pressed){
             setBackgroundResource(R.color.colorKeyBackgroundDefault)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                elevation = 0.0f
-            }
 
         }
-    }
-    //TODO Testing Popup
-
-    private fun popup(context: Context) : PopupWindow{
-        val inflater:LayoutInflater = context.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.popup_preview_layout,null)
-
-
-
-        val focusable = false
-
-        val popupWindow = PopupWindow(view, 200,200,focusable);
-        popupWindow.isClippingEnabled = false
-        popupWindow.showAtLocation(this, Gravity.CENTER,0,0)
-
-        return popupWindow
     }
 }
