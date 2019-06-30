@@ -26,6 +26,7 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
 
     }
 
+
     var keyboardData: KeyboardData
     var popupView: CardView
     var popupWindows: PopupWindow
@@ -116,8 +117,14 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
 
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+
+
         val c = v as CharacterButtonView
-        when (event?.action) {
+
+        val mask = event?.actionMasked
+
+        Log.d(DEBUG_TAG,"Mask is "+ mask.toString())
+        when (mask) {
             MotionEvent.ACTION_DOWN -> {
                 if (keyPressedViewId == -1) {
                     layoutAndShowPopupWindow(c)
@@ -158,7 +165,7 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
 
 
         var x = view_x + (  view.width-popupWindows.width)/2
-        val y = view_y - 900
+        val y = view_y - 300
 
         if (x < 0 ) {
             x = 0

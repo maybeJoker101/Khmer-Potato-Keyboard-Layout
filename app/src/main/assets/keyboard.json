@@ -98,7 +98,7 @@
       ]
     },
     {
-      "height" : 60,
+      "height" : 50,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -175,7 +175,7 @@
       ]
     },
     {
-      "height" : 60,
+      "height" : 50,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -252,7 +252,7 @@
       ]
     },
     {
-      "height" : 60,
+      "height" : 50,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "height" : 60,
+      "height" : 50,
       "buttons" : [
         {
           "buttonType" : 5,
