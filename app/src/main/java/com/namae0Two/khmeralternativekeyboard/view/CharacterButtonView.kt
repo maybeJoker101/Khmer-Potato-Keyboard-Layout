@@ -11,7 +11,7 @@ import com.namae0Two.khmeralternativekeyboard.R
 import com.namae0Two.khmeralternativekeyboard.data.ButtonData
 import com.namae0Two.khmeralternativekeyboard.util.Util
 
-class CharacterButtonView(context: Context?, var buttonData: ButtonData, var rowHeight:Int) : ConstraintLayout(context) {
+class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int) : KeyboardButton(context, buttonData) {
 
     companion object {
         val  DEBUG_TAG = "CHARACTER_BUTTON"
@@ -149,13 +149,5 @@ class CharacterButtonView(context: Context?, var buttonData: ButtonData, var row
     }
 
 
-    fun changeBackground(pressed:Boolean){
-        if (pressed) {
-            setBackgroundResource(R.color.colorKeyBackgroundDefaultClicked)
-        }
-        else if (!pressed){
-            setBackgroundResource(R.color.colorKeyBackgroundDefault)
 
-        }
-    }
 }

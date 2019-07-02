@@ -1,5 +1,6 @@
 package com.namae0Two.khmeralternativekeyboard.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Handler
@@ -16,7 +17,9 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
+import com.namae0Two.khmeralternativekeyboard.data.ButtonType
 import com.namae0Two.khmeralternativekeyboard.data.KeyboardData
+import com.namae0Two.khmeralternativekeyboard.util.Util
 
 class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchListener {
 
@@ -103,10 +106,23 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
             val rowLayout = LinearLayout(context)
             rowLayout.layoutParams = rowParams
             rowLayout.orientation = LinearLayout.HORIZONTAL
-            for (button in row.buttons) {
+            for (buttonData in row.buttons) {
 
-                val button = CharacterButtonView(context, button, row.height)
-                button.setOnTouchListener(this)
+                var button: ConstraintLayout? = null
+                when (buttonData.buttonType) {
+                    ButtonType.ALPHABET_TYPE -> {
+                        button = CharacterButtonView(context, buttonData, row.height)
+                    }
+                    ButtonType.SPACE -> {
+                        button = SpaceButtonView(context, buttonData, row.height)
+                    }
+                    else -> {
+                        button = CharacterButtonView(context, buttonData, row.height)
+
+                    }
+                }
+
+                button!!.setOnTouchListener(this)
                 rowLayout.addView(button)
             }
             keyboardContent.addView(rowLayout)
@@ -119,11 +135,27 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 
 
-        val c = v as CharacterButtonView
+        val c = v as KeyboardButton
 
+        return when (c.buttonData.buttonType) {
+            ButtonType.ALPHABET_TYPE -> {
+                onCharacterButtonTouched(v, event)
+            }
+            ButtonType.SPACE -> {
+                onSpaceButtonTouch(v, event)
+            }
+            else -> {
+                onCharacterButtonTouched(v, event)
+
+            }
+        }
+    }
+
+    private fun onCharacterButtonTouched(v: View?, event: MotionEvent?): Boolean {
+        val c = v as CharacterButtonView
         val mask = event?.actionMasked
 
-        Log.d(DEBUG_TAG,"Mask is "+ mask.toString())
+        Log.d(DEBUG_TAG, "Mask is " + mask.toString())
         when (mask) {
             MotionEvent.ACTION_DOWN -> {
                 if (keyPressedViewId == -1) {
@@ -140,6 +172,48 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
         return true
     }
 
+    private fun onSpaceButtonTouch(v: View?, event: MotionEvent?): Boolean {
+        val spaceButton = v as SpaceButtonView
+        val mask = event?.actionMasked
+
+        when (mask) {
+            MotionEvent.ACTION_DOWN -> {
+                Log.d(DEBUG_TAG, "Space is touched")
+                keyPressedViewId = v.id
+                spaceButton.changeBackground(true)
+            }//Do Something
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                Log.d(DEBUG_TAG, "Space is untouched")
+                keyPressedViewId = -1
+
+                spaceButton.changeBackground(false)
+
+            }
+            MotionEvent.ACTION_OUTSIDE -> return false
+        }
+        return true
+    }
+
+    private fun onBackSpaceTouch(v: View?, event: MotionEvent?): Boolean {
+
+        return false
+    }
+
+    private fun onEnterTouch(v: View?, event: MotionEvent?): Boolean {
+
+        return false
+    }
+
+    private fun onDigitsAndSignButtonTouch(v: View?, event: MotionEvent?): Boolean {
+
+        return false
+    }
+
+    private fun onKeyboardSwitchTouch(v: View?, event: MotionEvent?): Boolean {
+
+        return false
+    }
+
     fun layoutAndShowPopupWindow(view: CharacterButtonView) {
         //make sure only one keyPressed press at a time
         keyPressedViewId = view.id
@@ -153,7 +227,7 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
         popupView.findViewById<TextView>(R.id.popup_right).text = view.buttonData.right
         popupView.findViewById<TextView>(R.id.popup_bottom).text = view.buttonData.bottom
         popupView.findViewById<TextView>(R.id.popup_left).text = view.buttonData.left
-        var viewLocation = IntArray(2)
+        val viewLocation = IntArray(2)
         view.getLocationInWindow(viewLocation)
 
         val view_x = viewLocation[0]
@@ -161,19 +235,17 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
         val view_width = view.width
         val parent_width = this.width
 
-        Log.d(DEBUG_TAG, "x = " + view_x + " y = " + view_y + " width = " + view_width + " Parent = "+ parent_width)
+        Log.d(DEBUG_TAG, "x = " + view_x + " y = " + view_y + " width = " + view_width + " Parent = " + parent_width)
 
 
-        var x = view_x + (  view.width-popupWindows.width)/2
-        val y = view_y - 300
+        var x = view_x + (view.width - popupWindows.width) / 2
+        val y = view_y - Util.getPixelFromDp(100, context)
 
-        if (x < 0 ) {
+        if (x < 0) {
             x = 0
-        }else if (x > parent_width - popupWindows.width ){
-            x = parent_width  - popupWindows.width
+        } else if (x > parent_width - popupWindows.width) {
+            x = parent_width - popupWindows.width
         }
-
-
 
 
         //show Popup Windows
@@ -195,11 +267,11 @@ class KeyboardView(context: Context) : ConstraintLayout(context), View.OnTouchLi
         // if dismissable dismiss else rerun this function again after 50ms
 //        if(dimissable) {
 
-            keyPressedViewId = -1
-            //change color back
-            view.changeBackground(false)
-            //dismiss popupwindwos
-            popupWindows.dismiss()
+        keyPressedViewId = -1
+        //change color back
+        view.changeBackground(false)
+        //dismiss popupwindwos
+        popupWindows.dismiss()
 
 //        }
 //        else {

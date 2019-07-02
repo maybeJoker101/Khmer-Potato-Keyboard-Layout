@@ -3,6 +3,9 @@ package com.namae0Two.khmeralternativekeyboard;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
+
+import com.namae0Two.khmeralternativekeyboard.data.Trie;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,5 +25,11 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.namae0Two.khmeralternativekeyboard", appContext.getPackageName());
+
+
+        Trie trie = Trie.Companion.loadTrieFromAsset(appContext);
+
+        assertNotEquals(trie.getAllWords().size(), 17909);
+
     }
 }

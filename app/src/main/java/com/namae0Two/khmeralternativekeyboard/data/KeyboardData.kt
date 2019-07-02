@@ -9,13 +9,13 @@ class KeyboardData {
     companion object {
         fun keyboardDataInstanceFromAsset(context: Context?) :KeyboardData{
 
-            val json_string = context!!.assets.open("keyboard.json").bufferedReader().use {
+            val jsonString = context!!.assets.open("keyboard.json").bufferedReader().use {
                 it.readText()
             }
 
             var keyboardData = KeyboardData()
 //Keyboard
-            val keyboardJsonObjects = JSONObject(json_string)
+            val keyboardJsonObjects = JSONObject(jsonString)
 //            Rows
             val keyboardRows = keyboardJsonObjects.getJSONArray("rows")
 
@@ -35,7 +35,7 @@ class KeyboardData {
                     val type:Int = buttonJsonObject.getInt("buttonType")
                     val weight :Int  = buttonJsonObject.getInt("weight")
 
-                    var buttonData = ButtonData(ButtonType.fromInt(type)!!,weight)
+                    val buttonData = ButtonData(ButtonType.fromInt(type)!!, weight)
 
                     buttonData.middle = buttonJsonObject.getString("middle")
                     buttonData.top = buttonJsonObject.getString("top")

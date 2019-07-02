@@ -2,6 +2,6 @@
     <string name="app_name">Khmer Alternative Keyboard</string>
     <string name="khmer_ime">Khmer Alt</string>
     <string name="subtype_kh_KH">Khmer (KH)</string>
-
     <string name="double_quote_sign">\"</string>
+    <string name="space_text">ខ្មែរ</string>
 </resources>
