@@ -16,7 +16,7 @@ public class KhmerKeyboardService extends InputMethodService {
     @Override
     public View onCreateInputView() {
 
-        mKeyboardLayout = new KeyboardView(getApplicationContext());
+        mKeyboardLayout = new KeyboardView(getApplicationContext(), this);
 
 
         return mKeyboardLayout;

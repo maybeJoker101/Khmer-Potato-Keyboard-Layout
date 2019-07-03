@@ -1,8 +1,8 @@
 package com.namae0Two.khmeralternativekeyboard.view
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
@@ -10,11 +10,14 @@ import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
 import com.namae0Two.khmeralternativekeyboard.data.ButtonData
 import com.namae0Two.khmeralternativekeyboard.util.Util
+import kotlin.math.atan2
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int) : KeyboardButton(context, buttonData) {
 
     companion object {
-        val  DEBUG_TAG = "CHARACTER_BUTTON"
+        val DEBUG_TAG = "CHARACTER_BUTTON"
 
     }
 
@@ -34,22 +37,19 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
     var leftText: TextView
 
 
-
     init {
 
         //get ID
         id = View.generateViewId()
 
-        val lp = LinearLayout.LayoutParams(0, Util.getPixelFromDp(rowHeight,context))
+        val lp = LinearLayout.LayoutParams(0, Util.getPixelFromDp(rowHeight, context))
         lp.weight = buttonData.weight.toFloat()
         layoutParams = lp
 
 
-
-
         val resource = context!!.resources
         //dimensions
-        startEndMargin  = resource.getInteger(R.integer.leftAndRightKeyButtonMarginNoUnit).toFloat()
+        startEndMargin = resource.getInteger(R.integer.leftAndRightKeyButtonMarginNoUnit).toFloat()
         middleTextSize = resource.getInteger(R.integer.keyContentPrimarySizeNoUnit).toFloat()
         otherTextSize = resource.getInteger(R.integer.keyContentSecondarySizeNoUnit).toFloat()
 
@@ -96,7 +96,6 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         addView(leftText)
 
         setBackgroundResource(R.color.colorKeyBackgroundDefault)
-
 
 
     }
@@ -149,5 +148,128 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
     }
 
 
+    class CharacterButtonTouchListener :
+            OnTouchListener, OnLongClickListener {
 
+        companion object {
+            val DEBUG_TAG = "charBtnTouchListener"
+
+        }
+
+        var onDownOperation: (CharacterButtonView) -> Unit
+        var onUpOperation: (CharacterButtonView) -> Unit
+        var onActionOperation: (CharacterButtonView, Int) -> Unit
+
+        var currentViewId = -1
+        var downX: Double = 0.0
+        var downY: Double = 0.0
+        var direction = -1
+        var longPressed = false
+        //Distance Threshold
+        private val THRESHOLD: Int = 150
+
+        constructor(downOp: (CharacterButtonView) -> Unit
+                    , upOp: (CharacterButtonView) -> Unit
+                    , actionOp: (CharacterButtonView, Int) -> Unit
+        ) {
+            onDownOperation = downOp
+            onUpOperation = upOp
+            onActionOperation = actionOp
+        }
+
+        override fun onLongClick(v: View?): Boolean {
+            longPressed = true
+
+            if (direction == -1) {
+                Log.d(DEBUG_TAG, "OnLong Press Character Btn")
+                onActionOperation(v as CharacterButtonView, 0)
+                direction = 0
+            }
+            return true
+        }
+
+
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            val viewId = v?.id!!
+
+            if (currentViewId != -1 && viewId != currentViewId) {
+                return true
+            }
+
+            val eventX: Double = event?.x!!.toDouble()
+            val eventY: Double = event.y.toDouble()
+            when (event.action) {
+                //UP
+                MotionEvent.ACTION_UP -> {
+
+                    if (currentViewId == viewId) {
+                        onUpOperation(v as CharacterButtonView)
+                        reset()
+                    }
+
+                }
+                MotionEvent.ACTION_DOWN -> {
+                    if (currentViewId == -1) {
+                        v.performClick()
+                        currentViewId = viewId
+                        onDownOperation(v as CharacterButtonView)
+                        downX = eventX
+                        downY = eventY
+                    }
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val angle = Math.toDegrees(atan2(downY - eventY, eventX - downX)).toInt()
+                    val distance = sqrt((downX - eventX).pow(2.0) + (downY - eventY).pow(2.0))
+
+
+                    if (distance > THRESHOLD) {
+                        when (angle) {
+                            in 46..135 -> {
+//                                Log.d(DEBUG_TAG, "MOVE UP $distance")
+                                onMove(v as CharacterButtonView, 1)
+                            }
+                            in -44..45 -> {
+//                                Log.d(DEBUG_TAG, "MOVE RIGHT $distance")
+                                onMove(v as CharacterButtonView, 2)
+
+                            }
+                            in -134..-45 -> {
+//                                Log.d(DEBUG_TAG, "MOVE DOWN $distance")
+                                onMove(v as CharacterButtonView, 3)
+
+                            }
+                            in -181..-135, in 136..181 -> {
+
+//                                Log.d(DEBUG_TAG, "MOVE LEFT $distance")
+                                onMove(v as CharacterButtonView, 4)
+                            }
+                        }
+                    } else {
+                        //if below distance Threshold and is longpressed
+                        if (longPressed) {
+                            onMove(v as CharacterButtonView, 0)
+                        }
+                    }
+                    return true
+                }
+            }
+            return false
+        }
+
+        private fun onMove(v: CharacterButtonView, inputDirection: Int) {
+            if (direction != inputDirection) {
+                direction = inputDirection
+                onActionOperation(v, inputDirection)
+            }
+        }
+
+        private fun reset() {
+            currentViewId = -1
+            downX = 0.0
+            downY = 0.0
+            direction = -1
+            longPressed = false
+        }
+
+    }
 }

@@ -12,4 +12,6 @@ public class Util {
     public static int getPixelFromSp(int sp ,Context context ){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
+
+
 }
