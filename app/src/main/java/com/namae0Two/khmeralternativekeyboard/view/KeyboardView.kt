@@ -1,23 +1,35 @@
 package com.namae0Two.khmeralternativekeyboard.view
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.inputmethodservice.InputMethodService
 import android.os.Build
+import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.CardView
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
 import com.namae0Two.khmeralternativekeyboard.data.ButtonType
 import com.namae0Two.khmeralternativekeyboard.data.KeyboardData
+import com.namae0Two.khmeralternativekeyboard.data.Trie
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerWord
+import com.namae0Two.khmeralternativekeyboard.util.InputTypeUtils
 import com.namae0Two.khmeralternativekeyboard.util.Util
+import com.namae0Two.khmeralternativekeyboard.view.button.*
+import com.namae0Two.khmeralternativekeyboard.view.list.WordListAdapter
 
-class KeyboardView(context: Context, val inputService: InputMethodService) : ConstraintLayout(context), View.OnTouchListener {
+class KeyboardView(context: Context, val inputService: InputMethodService) : ConstraintLayout(context) {
 
 
     companion object {
@@ -38,21 +50,30 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
     //functioning parameter
     private var keyPressedViewId = -1
     private var characterButtonDirection: Int = -1
+    private var keypressed = false
+    private val backSpaceHandler = Handler()
 
+    //Word querying
+    var khmerWordTrie: Trie? = null
+    val wordRecycleView: RecyclerView
+    val wordQueryAdapter: WordListAdapter
+
+    val khmerWords: MutableList<KhmerWord> = mutableListOf()
     init {
         id = generateViewId()
 
-        layoutParams = LayoutParams(MATCH_PARENT, 500)
+        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
         //Read Keyboard Data
         keyboardData = KeyboardData.keyboardDataInstanceFromAsset(context)
 
+        //Load Trie Data
+
+        loadTrieData(context)
 
         ///PopupWindows
         val inflater: LayoutInflater = LayoutInflater.from(context)
         popupView = inflater.inflate(R.layout.popup_preview_layout, null, false) as CardView
-//        popupView.layoutParams.height = Util.getPixelFromDp(100,context)
-//        popupView.layoutParams.width = Util.getPixelFromDp(100,context)
 
         val measureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         popupView.measure(measureSpec, measureSpec)
@@ -90,12 +111,48 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         addView(topPlaceholder)
         addView(keyboardContent)
 
+        //RecycleView
+        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
+        val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+        val words = khmerWordTrie!!.getAllWords()
 
+
+        wordRecycleView = RecyclerView(context)
+        wordQueryAdapter = WordListAdapter()
+
+
+        wordRecycleView.setHasFixedSize(true)
+        wordRecycleView.setBackgroundResource(R.color.colorKeyBackgroundDefault)
+        wordRecycleView.layoutManager = layoutManager
+        wordRecycleView.adapter = wordQueryAdapter
+        wordQueryAdapter.addAllKhmerWord(words)
+        Log.d(DEBUG_TAG, "Word Count ${words.size}  $recycleViewHeight")
+        keyboardContent.addView(wordRecycleView)
+
+        //Border
+        val border = View(context)
+        val viewParams = LinearLayout.LayoutParams(MATCH_PARENT, Util.getPixelFromDp(0.75f, context))
+        border.setBackgroundResource(R.color.colorKeyContentPrimaryDefault)
+        border.layoutParams = viewParams
+        keyboardContent.addView(border)
+        //
         //End Children
+        buildRowContentAndListener()
+
+    }
+
+    fun loadTrieData(context: Context) {
+
+        khmerWordTrie = Trie.loadTrieFromAsset(context)
+    }
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun buildRowContentAndListener() {
 
         ///Touch Listener
 
-        //lamda
+        //Character Button listener
         val charBtnDownOp: (CharacterButtonView) -> Unit = {
             onCharacterButtonDown(it)
         }
@@ -106,9 +163,72 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         val characterBtnTouchListener: CharacterButtonView.CharacterButtonTouchListener =
                 CharacterButtonView.CharacterButtonTouchListener(charBtnDownOp, charBtnUpOp, chatBtnActionOp)
 
-        ///
+        //End Character Button Listener
+
+        //Backspace button listener
+
+        val backspaceDownOp: () -> Unit = {
+            onBackspaceDown()
+        }
+        val backspaceUpOp: () -> Unit = {
+            onBackspaceUp()
+        }
+        val backspaceLongPressedOp: () -> Unit = {
+            onBackspaceLongpressed()
+        }
+        val backspaceBtnTouchListener: BackSpaceButtonView.BackSpaceTouchListener =
+                BackSpaceButtonView.BackSpaceTouchListener(backspaceDownOp, backspaceUpOp, backspaceLongPressedOp)
+
+        //end backspace button listener
+
+        //Space button touch listener
+        val spaceDownOp: () -> Unit = {
+            onSpaceDown()
+        }
+        val spaceUpOp: () -> Unit = {
+            onSpaceUp()
+        }
+        val spaceLongPressedOp: () -> Unit = {
+            onSpaceLongpressed()
+        }
+
+        val spaceBtnTouchListener: SpaceButtonView.SpaceButtonTouchListener =
+                SpaceButtonView.SpaceButtonTouchListener(spaceDownOp, spaceUpOp, spaceLongPressedOp)
+        //End Space button Touch listener
 
 
+        //Keyboard Switch Btn Touch Listener
+        val switchDownOp: () -> Unit = {
+            onSwitchDown()
+        }
+        val switchUpOp: () -> Unit = {
+            onSwitchUp()
+        }
+        val switchLongPressedOp: () -> Unit = {
+            onSwitchLongpressed()
+        }
+
+        val switchBtnTouchListener: KeyboardSwitchButtonView.KeyboardSwitchButtonTouchListener =
+                KeyboardSwitchButtonView.KeyboardSwitchButtonTouchListener(switchDownOp, switchUpOp, switchLongPressedOp)
+
+
+        //End Keyboard Switch Btn Touch Listener
+
+        //Enter Button Touch listener
+        val enterDownOp: () -> Unit = {
+            onEnterDown()
+        }
+        val enterUpOp: () -> Unit = {
+            onEnterUp()
+        }
+        val enterLongPressedOp: () -> Unit = {
+            onEnterLongpressed()
+        }
+
+        val enterBtnTouchListener: EnterButtonView.EnterButtonTouchListener =
+                EnterButtonView.EnterButtonTouchListener(enterDownOp, enterUpOp, enterLongPressedOp)
+
+        //End Enter button  Touch Listener
         for (row in keyboardData.rows) {
 
             val rowParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -128,79 +248,58 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
                     }
                     ButtonType.SPACE -> {
                         button = SpaceButtonView(context, buttonData, row.height)
+                        button.setOnTouchListener(spaceBtnTouchListener)
+                        button.setOnLongClickListener(spaceBtnTouchListener)
                     }
                     ButtonType.BACKSPACE -> {
                         button = BackSpaceButtonView(context, buttonData, row.height)
+                        button.setOnTouchListener(backspaceBtnTouchListener)
+                        button.setOnLongClickListener(backspaceBtnTouchListener)
 
                     }
                     ButtonType.ENTER -> {
                         button = EnterButtonView(context, buttonData, row.height)
+                        button.setOnTouchListener(enterBtnTouchListener)
+                        button.setOnLongClickListener(enterBtnTouchListener)
 
                     }
                     ButtonType.KEYBOARD_SWITCH -> {
                         button = KeyboardSwitchButtonView(context, buttonData, row.height)
+                        button.setOnTouchListener(switchBtnTouchListener)
+                        button.setOnLongClickListener(switchBtnTouchListener)
 
                     }
                 }
-
-//                button.setOnTouchListener(this)
-
                 rowLayout.addView(button)
             }
             keyboardContent.addView(rowLayout)
         }
-
-
     }
 
-
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-
-
-        val c = v as KeyboardButton
-
-        return when (c.buttonData.buttonType) {
-            ButtonType.ALPHABET_TYPE -> {
-                true
-            }
-            ButtonType.NUMBER_AND_SIGN -> {
-                onDigitsAndSignButtonTouch(v, event)
-            }
-            ButtonType.SPACE -> {
-                onSpaceButtonTouch(v, event)
-
-            }
-            ButtonType.BACKSPACE -> {
-                onBackSpaceTouch(v, event)
-
-
-            }
-            ButtonType.ENTER -> {
-                onEnterTouch(v, event)
-
-
-            }
-            ButtonType.KEYBOARD_SWITCH -> {
-                onKeyboardSwitchTouch(v, event)
-
-            }
-        }
-    }
 
     //Character Button Related Function
     fun onCharacterButtonDown(view: CharacterButtonView) {
-        //if keypress is other then -1 stop operation return
-        if (keyPressedViewId != -1) {
+        //if another key is pressed return and do nothing
+        if (keypressed) {
             return
         }
+        //set keypressed
+        keypressed = true
+
+
+        //make sure only one keyPressed press at a time
+        keyPressedViewId = view.id
+        //change color of keyPressed key
+        view.changeBackground(true)
         layoutAndShowPopupWindow(view)
     }
 
     fun onCharacterButtonUp(view: CharacterButtonView) {
-        //Return if the id is different from the first clicked one
-        if (keyPressedViewId != view.id) {
+        //if character key is not noted as pressed before stop operation
+        if (keyPressedViewId == -1) {
             return
         }
+        wordQueryAdapter.addKhmerWord("A")
         dismissPopupWindows(view)
 
         var text = ""
@@ -216,19 +315,126 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
             text = view.buttonData.middle
         }
         commitText(text)
+
+        characterButtonDirection = -1
+        keyPressedViewId = -1
+        keypressed = false
     }
 
     fun onCharacterButtonAction(view: CharacterButtonView, direction: Int) {
-        //Return if the id is different from the first clicked one
-        if (keyPressedViewId != view.id) {
-            return
-        }
-
-
         changePopupContent(view, direction)
     }
     ///END character Button related function
 
+    //Backspace Button Related Function
+
+    fun onBackspaceDown() {
+        //if another key is pressed return and do nothing
+        if (keypressed) {
+            return
+        }
+        //set keypressed
+        keypressed = true
+        deleteText()
+    }
+
+    fun onBackspaceUp() {
+        keypressed = false
+    }
+
+    fun onBackspaceLongpressed() {
+        continueDelete()
+    }
+
+
+    //ENd backSpace button Related Function
+
+    //Space Button Related Function
+
+    fun onSpaceDown() {
+        //if another key is pressed return and do nothing
+        if (keypressed) {
+            return
+        }
+        //set keypressed
+        keypressed = true
+
+
+    }
+
+    fun onSpaceUp() {
+        commitText(" ")
+        keypressed = false
+
+    }
+
+    fun onSpaceLongpressed() {
+
+    }
+
+    //End Space Button related Function
+
+    //Keyboard Switch Button Related Function
+
+    fun onSwitchDown() {
+        //if another key is pressed return and do nothing
+        if (keypressed) {
+            return
+        }
+        //set keypressed
+        keypressed = true
+
+    }
+
+    fun onSwitchUp() {
+        keypressed = false
+        val imeManager = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imeManager.showInputMethodPicker()
+    }
+
+    fun onSwitchLongpressed() {
+
+    }
+
+    //End Keyboard Switch button Related Function
+
+    //Enter Button Touch Related Function
+    fun onEnterDown() {
+        //if another key is pressed return and do nothing
+        if (keypressed) {
+            return
+        }
+        //set keypressed
+        keypressed = true
+
+        val editerInfo = inputService.currentInputEditorInfo
+        val imeOptionsAction = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editerInfo)
+
+        Log.d(DEBUG_TAG, "Current Edit Text IME Option $imeOptionsAction")
+        //TODO investigate Enter Button
+        //Thank Stack OverFlowww
+        //https://stackoverflow.com/questions/32161133/use-enter-key-on-softkeyboard-to-initiation-an-event
+        if (imeOptionsAction == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) {
+            inputService.currentInputConnection.performEditorAction(editerInfo.actionId)
+
+        } else if (imeOptionsAction != EditorInfo.IME_ACTION_NONE) {
+            inputService.currentInputConnection.performEditorAction(imeOptionsAction)
+        } else {
+            val code = 10
+            commitText(code.toChar().toString())
+        }
+    }
+
+    fun onEnterUp() {
+        keypressed = false
+
+    }
+
+    fun onEnterLongpressed() {
+
+    }
+
+    //End Enter button  Touch Related Function
 
     //Input Connection Related Method
     fun commitText(text: String) {
@@ -236,61 +442,36 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         val inputConnection = inputService.currentInputConnection
         //reset direction
         inputConnection.commitText(text, 1)
-        characterButtonDirection = -1
     }
 
-    private fun onSpaceButtonTouch(v: View?, event: MotionEvent?): Boolean {
-        val spaceButton = v as SpaceButtonView
-        val mask = event?.actionMasked
+    fun deleteText() {
+//        inputService.currentInputConnection.sendKeyEvent(KeyEvent(ACTION_DOWN, KEYCODE_DEL))
+//        inputService.currentInputConnection.sendKeyEvent(KeyEvent(ACTION_UP, KEYCODE_DEL))
 
-        when (mask) {
-            MotionEvent.ACTION_DOWN -> {
-                Log.d(DEBUG_TAG, "Space is touched")
-                keyPressedViewId = v.id
-                spaceButton.changeBackground(true)
-            }//Do Something
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                Log.d(DEBUG_TAG, "Space is untouched")
-                keyPressedViewId = -1
+        val currentInput = inputService.currentInputConnection
 
-                spaceButton.changeBackground(false)
+        val selectedText: CharSequence? = currentInput.getSelectedText(0)
 
-            }
-            MotionEvent.ACTION_OUTSIDE -> return false
+        if (!selectedText.isNullOrEmpty()) {
+            currentInput.commitText("", 1)
+        } else {
+            currentInput.deleteSurroundingText(1, 0)
         }
-        return true
+
     }
 
-    private fun onBackSpaceTouch(v: View?, event: MotionEvent?): Boolean {
+    fun continueDelete() {
+        if (keypressed) {
+            deleteText()
+            backSpaceHandler.postDelayed({ continueDelete() }, 75)
+        }
 
-        return false
     }
-
-    private fun onEnterTouch(v: View?, event: MotionEvent?): Boolean {
-
-        return false
-    }
-
-    private fun onDigitsAndSignButtonTouch(v: View?, event: MotionEvent?): Boolean {
-
-        return false
-    }
-
-    private fun onKeyboardSwitchTouch(v: View?, event: MotionEvent?): Boolean {
-
-        return false
-    }
+    //End Input connection related
 
 
     //Popup related Function
     fun layoutAndShowPopupWindow(view: CharacterButtonView) {
-
-
-        //make sure only one keyPressed press at a time
-        keyPressedViewId = view.id
-        //change color of keyPressed key
-        view.changeBackground(true)
-
         //content of popupWindow
         popupView.findViewById<TextView>(R.id.popup_middle_big).text = view.buttonData.middle
         popupView.findViewById<TextView>(R.id.popup_middle_primary).text = view.buttonData.middle
@@ -323,9 +504,6 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
     }
 
     fun dismissPopupWindows(view: CharacterButtonView) {
-
-
-        keyPressedViewId = -1
         //change color back
         view.changeBackground(false)
         //dismiss popupwindwos
@@ -380,7 +558,6 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         popupView.findViewById<TextView>(R.id.popup_left).visibility = View.VISIBLE
     }
 
-    ///OnTouch Listener
-
+    //End popup related Function
 
 }

@@ -1,4 +1,4 @@
-package com.namae0Two.khmeralternativekeyboard.view
+package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout

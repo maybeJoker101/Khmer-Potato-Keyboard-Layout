@@ -1,7 +1,8 @@
-package com.namae0Two.khmeralternativekeyboard.view
+package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -61,6 +62,54 @@ class EnterButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int)
 
         //Background
         setBackgroundResource(R.color.colorKeyBackgroundDefault)
+
+    }
+
+
+    class EnterButtonTouchListener : OnLongClickListener, OnTouchListener {
+
+        var longPressed = false
+
+        var onDownOperation: () -> Unit
+        var onUpOperation: () -> Unit
+        var onLongPressOperation: () -> Unit
+
+        constructor(downOp: () -> Unit, upOp: () -> Unit, longOp: () -> Unit) {
+            onDownOperation = downOp
+            onUpOperation = upOp
+            onLongPressOperation = longOp
+        }
+
+        override fun onLongClick(v: View?): Boolean {
+            longPressed = true
+            onLongPressOperation()
+            return true
+        }
+
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            val view = v as EnterButtonView
+            when (event?.actionMasked) {
+
+                MotionEvent.ACTION_DOWN -> {
+                    view.changeBackground(true)
+                    onDownOperation()
+                }
+                MotionEvent.ACTION_UP -> {
+                    onUpOperation()
+                    view.changeBackground(false)
+                    reset()
+
+                }
+            }
+
+
+            return false
+        }
+
+        private fun reset() {
+            longPressed = false
+        }
+
 
     }
 }

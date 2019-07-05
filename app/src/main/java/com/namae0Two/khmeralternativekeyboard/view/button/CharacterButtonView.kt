@@ -1,4 +1,4 @@
-package com.namae0Two.khmeralternativekeyboard.view
+package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -166,7 +166,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         var direction = -1
         var longPressed = false
         //Distance Threshold
-        private val THRESHOLD: Int = 150
+        private var moveThreshold: Int = -1
 
         constructor(downOp: (CharacterButtonView) -> Unit
                     , upOp: (CharacterButtonView) -> Unit
@@ -190,6 +190,23 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
 
 
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+
+            //Set moveThreshold
+            if (moveThreshold == -1) {
+                val width = v?.width!!
+                val height = v.height
+
+                Log.d(DEBUG_TAG, "Width $width Height $height")
+
+                if (width > height) {
+                    moveThreshold = width / 2
+                } else {
+                    moveThreshold = height / 2
+                }
+                moveThreshold += 10
+            }
+
+
             val viewId = v?.id!!
 
             if (currentViewId != -1 && viewId != currentViewId) {
@@ -222,7 +239,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
                     val distance = sqrt((downX - eventX).pow(2.0) + (downY - eventY).pow(2.0))
 
 
-                    if (distance > THRESHOLD) {
+                    if (distance > moveThreshold) {
                         when (angle) {
                             in 46..135 -> {
 //                                Log.d(DEBUG_TAG, "MOVE UP $distance")
@@ -257,6 +274,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         }
 
         private fun onMove(v: CharacterButtonView, inputDirection: Int) {
+            longPressed = true
             if (direction != inputDirection) {
                 direction = inputDirection
                 onActionOperation(v, inputDirection)
