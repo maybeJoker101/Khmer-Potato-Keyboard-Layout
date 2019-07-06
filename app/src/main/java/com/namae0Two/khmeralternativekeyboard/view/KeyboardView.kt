@@ -19,10 +19,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
+import android.widget.Toast
 import com.namae0Two.khmeralternativekeyboard.R
 import com.namae0Two.khmeralternativekeyboard.data.ButtonType
 import com.namae0Two.khmeralternativekeyboard.data.KeyboardData
 import com.namae0Two.khmeralternativekeyboard.data.Trie
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang
 import com.namae0Two.khmeralternativekeyboard.khmer.KhmerWord
 import com.namae0Two.khmeralternativekeyboard.util.InputTypeUtils
 import com.namae0Two.khmeralternativekeyboard.util.Util
@@ -53,12 +55,17 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
     private var keypressed = false
     private val backSpaceHandler = Handler()
 
-    //Word querying
+    //Word
     var khmerWordTrie: Trie? = null
-    val wordRecycleView: RecyclerView
-    val wordQueryAdapter: WordListAdapter
+    val composingWordRecycleView: RecyclerView
+    val composingWordAdapter: WordListAdapter
 
-    val khmerWords: MutableList<KhmerWord> = mutableListOf()
+    val possibleWordRecycleView: RecyclerView
+    val possibleWordAdapter: WordListAdapter
+
+    var composingText: String = ""
+    var composingTextGroup: MutableMap<String, List<String>> = mutableMapOf()
+
     init {
         id = generateViewId()
 
@@ -70,6 +77,9 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         //Load Trie Data
 
         loadTrieData(context)
+
+        //Empty
+        composingTextGroup[""] = listOf()
 
         ///PopupWindows
         val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -112,30 +122,24 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         addView(keyboardContent)
 
         //RecycleView
-        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
-        val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
-        val words = khmerWordTrie!!.getAllWords()
+        //possible Word
+        possibleWordRecycleView = RecyclerView(context)
 
+        val possibleLamda = { position: Int ->
+            possibleWordClick(position)
+        }
+        possibleWordAdapter = WordListAdapter(possibleLamda)
+        buildPossibleWordRecycleView()
+        //composingWOrd
+        val composingLamda = { position: Int ->
+            composingWordClick(position)
+        }
+        composingWordRecycleView = RecyclerView(context)
+        composingWordAdapter = WordListAdapter(composingLamda)
 
-        wordRecycleView = RecyclerView(context)
-        wordQueryAdapter = WordListAdapter()
+        buildComposingWordRecycleView()
 
-
-        wordRecycleView.setHasFixedSize(true)
-        wordRecycleView.setBackgroundResource(R.color.colorKeyBackgroundDefault)
-        wordRecycleView.layoutManager = layoutManager
-        wordRecycleView.adapter = wordQueryAdapter
-        wordQueryAdapter.addAllKhmerWord(words)
-        Log.d(DEBUG_TAG, "Word Count ${words.size}  $recycleViewHeight")
-        keyboardContent.addView(wordRecycleView)
-
-        //Border
-        val border = View(context)
-        val viewParams = LinearLayout.LayoutParams(MATCH_PARENT, Util.getPixelFromDp(0.75f, context))
-        border.setBackgroundResource(R.color.colorKeyContentPrimaryDefault)
-        border.layoutParams = viewParams
-        keyboardContent.addView(border)
-        //
+        //End Border
         //End Children
         buildRowContentAndListener()
 
@@ -146,7 +150,78 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         khmerWordTrie = Trie.loadTrieFromAsset(context)
     }
 
+    fun buildPossibleWordRecycleView() {
+        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
+        val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+        val recycleViewParams = LinearLayout.LayoutParams(MATCH_PARENT, recycleViewHeight)
+        possibleWordRecycleView.setHasFixedSize(true)
+        possibleWordRecycleView.setBackgroundResource(R.color.colorKeyBackgroundDefault)
+        possibleWordRecycleView.layoutParams = recycleViewParams
+        possibleWordRecycleView.layoutManager = layoutManager
+        possibleWordRecycleView.adapter = possibleWordAdapter
+        keyboardContent.addView(possibleWordRecycleView)
 
+        //Border
+        val border = View(context)
+        val viewParams = LinearLayout.LayoutParams(MATCH_PARENT, Util.getPixelFromDp(0.75f, context))
+        border.setBackgroundResource(R.color.colorKeyContentPrimaryDefault)
+        border.layoutParams = viewParams
+        keyboardContent.addView(border)
+    }
+
+    fun buildComposingWordRecycleView() {
+        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
+        val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+        val recycleViewParams = LinearLayout.LayoutParams(MATCH_PARENT, recycleViewHeight)
+        composingWordRecycleView.setHasFixedSize(true)
+        composingWordRecycleView.setBackgroundResource(R.color.colorKeyBackgroundDefault)
+        composingWordRecycleView.layoutParams = recycleViewParams
+        composingWordRecycleView.layoutManager = layoutManager
+        composingWordRecycleView.adapter = composingWordAdapter
+        keyboardContent.addView(composingWordRecycleView)
+
+        //Border
+        val border = View(context)
+        val viewParams = LinearLayout.LayoutParams(MATCH_PARENT, Util.getPixelFromDp(0.75f, context))
+        border.setBackgroundResource(R.color.colorKeyContentPrimaryDefault)
+        border.layoutParams = viewParams
+        keyboardContent.addView(border)
+    }
+
+
+    //adapter listener
+    fun possibleWordClick(position: Int) {
+        val word = possibleWordAdapter.wordList[position]
+        setCurrentComposingText(word)
+        commitComposingText()
+    }
+
+    fun composingWordClick(position: Int) {
+        Toast.makeText(context, composingWordAdapter.wordList[position], Toast.LENGTH_SHORT).show()
+        //get clicked Word
+        val composingWord = composingWordAdapter.wordList[position]
+        //get list of current group
+        val composingGroup = composingTextGroup[composingText]
+        //if only one left in composingGroup
+        if (composingGroup!!.size == 1 && composingGroup.contains(composingWord)) {
+            //set clicked word as composing word and commit it to editetxt
+            setCurrentComposingText(composingWord)
+            commitComposingText()
+        } else {
+            //reset composing group delete other candidate
+            resetComposingWordGroup()
+            //set composing group of 1 item only
+            Log.d(DEBUG_TAG, "clicked compossing $composingWord")
+            composingTextGroup[composingWord] = listOf(composingWord)
+            //set composing text to clicked item
+            setCurrentComposingText(composingWord)
+            //set adapter using current composing text
+            setComposingAndPossibleWordAdapter()
+        }
+
+    }
+
+    //end adapter listener
     @SuppressLint("ClickableViewAccessibility")
     fun buildRowContentAndListener() {
 
@@ -299,7 +374,6 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         if (keyPressedViewId == -1) {
             return
         }
-        wordQueryAdapter.addKhmerWord("A")
         dismissPopupWindows(view)
 
         var text = ""
@@ -314,7 +388,29 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         if (text.isEmpty()) {
             text = view.buttonData.middle
         }
-        commitText(text)
+
+        val type = view.buttonData.buttonType
+
+        when (type) {
+            ButtonType.ALPHABET_TYPE -> {
+                //if direction is -1 add all the character to possible composing Text
+                if (characterButtonDirection == -1) {
+                    addCharactersToCOmposingText(view.buttonData.allChars)
+                } else {
+                    addCharToComposingText(text)
+                }
+
+            }
+            ButtonType.NUMBER_AND_SIGN -> {
+                commitText(text)
+
+            }
+            else -> {
+                return
+            }
+        }
+
+
 
         characterButtonDirection = -1
         keyPressedViewId = -1
@@ -407,11 +503,15 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         //set keypressed
         keypressed = true
 
+
+    }
+
+    fun onEnterUp() {
+        keypressed = false
         val editerInfo = inputService.currentInputEditorInfo
         val imeOptionsAction = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editerInfo)
 
         Log.d(DEBUG_TAG, "Current Edit Text IME Option $imeOptionsAction")
-        //TODO investigate Enter Button
         //Thank Stack OverFlowww
         //https://stackoverflow.com/questions/32161133/use-enter-key-on-softkeyboard-to-initiation-an-event
         if (imeOptionsAction == InputTypeUtils.IME_ACTION_CUSTOM_LABEL) {
@@ -425,34 +525,181 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         }
     }
 
-    fun onEnterUp() {
-        keypressed = false
-
-    }
-
     fun onEnterLongpressed() {
 
     }
 
     //End Enter button  Touch Related Function
+    //Map related Function
+    fun resetComposingWordGroup() {
+        composingTextGroup.clear()
+        composingTextGroup[""] = listOf()
+    }
+
+    //
+
 
     //Input Connection Related Method
     fun commitText(text: String) {
-
         val inputConnection = inputService.currentInputConnection
-        //reset direction
+
+        // currently there is composing text
+        if (composingText.isNotEmpty()) {
+            commitComposingText()
+        }
+
         inputConnection.commitText(text, 1)
+    }
+
+    //Add 1 Character to Composing Text
+    fun addCharToComposingText(text: String) {
+        //get Current composing Text
+        val oldComposingText = composingText
+        //update to new composing Text
+        val newComposingText = composingText + text
+        //get old possible list
+        val oldPossibleList = composingTextGroup[oldComposingText]
+        val possibleList = mutableListOf<String>()
+
+        possibleList.add(newComposingText)
+        if (oldPossibleList != null) {
+            for (i in 0 until oldPossibleList.size) {
+                //add text to old possible
+                val newPossible = oldPossibleList[i] + text
+                //check if it is prefix or word
+                if (khmerWordTrie!!.isPrefixOrWord(newPossible)) {
+                    //add it to new possible
+                    if (!possibleList.contains(newPossible)) {
+                        possibleList.add(newPossible)
+                    }
+                }
+                //if text is consonant
+                if (KhmerLang.consonant.contains(text)) {
+                    //add subscript and check for prefix
+                    val newPossible2 = oldPossibleList[i] + KhmerLang.SUBSCRIPT_SIGN + text
+                    if (khmerWordTrie!!.isPrefixOrWord(newPossible2)) {
+                        possibleList.add(newPossible2)
+
+                    }
+                }
+
+            }
+        }
+
+
+        setCurrentComposingText(newComposingText)
+
+        composingTextGroup[composingText] = possibleList
+        setComposingAndPossibleWordAdapter()
+
+    }
+
+    //Add Many Characters to Composing Text
+    fun addCharactersToCOmposingText(chracters: List<String>) {
+
+
+        //get Current composing Text
+        val oldComposingText = composingText
+        //update to new composing Text
+        val newComposingText = composingText + chracters[0]
+        //get old possible list
+        val oldPossibleList = composingTextGroup[oldComposingText]
+        val possibleList = mutableListOf<String>()
+
+        if (oldComposingText.isEmpty()) {
+            possibleList.addAll(chracters)
+
+        } else {
+            possibleList.add(newComposingText)
+
+            if (oldPossibleList != null) {
+
+
+                for (character in chracters) {
+                    for (i in 0 until oldPossibleList.size) {
+                        //add text to old possible
+                        val newPossible = oldPossibleList[i] + character
+                        //check if it is prefix or word
+                        if (khmerWordTrie!!.isPrefixOrWord(newPossible)) {
+                            //add it to new possible
+                            if (!possibleList.contains(newPossible)) {
+                                possibleList.add(newPossible)
+                            }
+                        }
+                        //if text is consonant
+                        if (KhmerLang.consonant.contains(character)) {
+                            //add subscript and check for prefix
+                            val newPossible2 = oldPossibleList[i] + KhmerLang.SUBSCRIPT_SIGN + character
+                            if (khmerWordTrie!!.isPrefixOrWord(newPossible2)) {
+                                possibleList.add(newPossible2)
+
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+        }
+        setCurrentComposingText(newComposingText)
+
+        composingTextGroup[composingText] = possibleList
+        setComposingAndPossibleWordAdapter()
+    }
+
+    fun setCurrentComposingText(text: String) {
+        composingText = text
+        val current = inputService.currentInputConnection!!
+        current.setComposingText(composingText, 1)
+//        queryWordFromTrie()
+
+    }
+
+    fun commitComposingText() {
+        val inputConnection = inputService.currentInputConnection
+        inputConnection.finishComposingText()
+        composingText = ""
+        setComposingAndPossibleWordAdapter()
     }
 
     fun deleteText() {
 //        inputService.currentInputConnection.sendKeyEvent(KeyEvent(ACTION_DOWN, KEYCODE_DEL))
 //        inputService.currentInputConnection.sendKeyEvent(KeyEvent(ACTION_UP, KEYCODE_DEL))
 
+
         val currentInput = inputService.currentInputConnection
 
         val selectedText: CharSequence? = currentInput.getSelectedText(0)
 
+        //if there is currently composing text delete the composing text
+        //if there is no selected text
+        if (composingText.isNotEmpty() && selectedText.isNullOrEmpty()) {
+            //delete old
+            val currentComposing = composingText
+            composingTextGroup.remove(currentComposing)
+            if (currentComposing.length == 1) {
+                setCurrentComposingText("")
+            } else {
+                setCurrentComposingText(composingText.substring(0, composingText.length - 1))
+            }
+            //check if current composingtext has its array
+            if (!composingTextGroup.contains(composingText)) {
+                Log.d(DEBUG_TAG, " current composing $composingText  ${composingTextGroup.contains(composingText)}")
+                composingTextGroup[composingText] = listOf(composingText)
+            }
+
+            setComposingAndPossibleWordAdapter()
+            return
+        }
+
+
+
         if (!selectedText.isNullOrEmpty()) {
+            if (composingText.isNotEmpty()) {
+                commitComposingText()
+                resetComposingWordGroup()
+            }
             currentInput.commitText("", 1)
         } else {
             currentInput.deleteSurroundingText(1, 0)
@@ -467,8 +714,43 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
         }
 
     }
+
+    fun setComposingAndPossibleWordAdapter() {
+        composingWordAdapter.reset()
+        possibleWordAdapter.reset()
+
+        Log.d(DEBUG_TAG, "current composing text $composingText")
+        val composing = composingTextGroup[composingText]!!
+        val currentWord = currentPossibleWord(3)
+
+        val filter = composing.filterNot { word -> currentWord.contains(word) && word != composingText && !khmerWordTrie?.isPrefix(word)!! }
+        composingWordAdapter.addAllKhmerWord(filter)
+        possibleWordAdapter.addAllKhmerWord(currentWord)
+    }
     //End Input connection related
 
+    //Trie Related Function
+
+    fun currentPossibleWord(depth: Int): List<String> {
+        val result = mutableListOf<String>()
+        //length should be 2 or more
+        if (composingText.length >= 2) {
+            for (composing in composingTextGroup[composingText]!!) {
+                Log.d(DEBUG_TAG, "possible word of $composing")
+                if (khmerWordTrie?.isPrefixOrWord(composing)!!) {
+                    result.addAll(khmerWordTrie?.searchWord(composing)!!.getWords(depth))
+                }
+            }
+        }
+
+        result.sortWith(compareBy({ it.length }, { khmerWordTrie?.getCount(it) }))
+        return result.toList()
+
+    }
+
+
+    //
+    ///ENd Trie Ralated Function
 
     //Popup related Function
     fun layoutAndShowPopupWindow(view: CharacterButtonView) {

@@ -3,7 +3,7 @@
   "rows" : [
 
     {
-      "height" : 50,
+      "height": 40,
       "buttons": [
         {
           "buttonType": 1,
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "height" : 50,
+      "height": 40,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -175,7 +175,7 @@
       ]
     },
     {
-      "height" : 50,
+      "height": 40,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -252,7 +252,7 @@
       ]
     },
     {
-      "height" : 50,
+      "height": 40,
       "buttons" : [
         {
           "buttonType" : 1,
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "height" : 50,
+      "height": 40,
       "buttons" : [
         {
           "buttonType" : 5,
@@ -352,7 +352,7 @@
         {
           "buttonType" : 4,
           "weight" : 4,
-          "middle" : "ខ្មែរ",
+          "middle": "ដំឡូង",
           "top" : "",
           "right" : "",
           "bottom" : "",

@@ -69,6 +69,20 @@ class Trie(var root: TrieNode = TrieNode()) {
         return trieFromSearchNode(currentNode)
     }
 
+    fun getCount(word: String): Int {
+        var currentNode = this.root
+
+        for (i in 0 until word.length) {
+            val character = word[i].toString()
+            if (!currentNode.children.containsKey(character)) {
+                return -1
+            }
+            currentNode = currentNode.children[character]!!
+        }
+
+        return currentNode.count
+    }
+
     //check if the input word is a prefix to other word
     fun isPrefix(word: String): Boolean {
         var currentNode = this.root
@@ -127,6 +141,22 @@ class Trie(var root: TrieNode = TrieNode()) {
             result.add(node.getWordFromNode())
         }
         node.children.forEach { (_, v) -> deepFirstSearch(v, result) }
+    }
+
+    private fun deepFirstSearch(node: TrieNode, result: MutableList<String>, deep: Int) {
+        if (deep == 0) {
+            return
+        }
+        if (node.isWord) {
+            result.add(node.getWordFromNode())
+        }
+        node.children.forEach { (_, v) -> deepFirstSearch(v, result, deep - 1) }
+    }
+
+    fun getWords(deep: Int): List<String> {
+        val result = mutableListOf<String>()
+        deepFirstSearch(this.root, result, deep)
+        return result.toList()
     }
 
     class TrieNode(var character: String = "", var parent: TrieNode? = null, var isWord: Boolean = false) {

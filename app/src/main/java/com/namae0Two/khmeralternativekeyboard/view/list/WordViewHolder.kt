@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
 
-class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup, val listener: (Int) -> Unit) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.word_layout, parent, false)) {
 
     private var wordContent: TextView? = null
@@ -25,8 +25,9 @@ class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         //color
     }
 
-    fun bind(word: String) {
+    fun bind(word: String, position: Int) {
         wordContent?.text = word
+        contentParent?.setOnClickListener { listener(position) }
     }
 
 
