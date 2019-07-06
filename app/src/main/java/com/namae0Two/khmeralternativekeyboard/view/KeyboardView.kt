@@ -743,7 +743,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : Con
             }
         }
 
-        result.sortWith(compareBy({ it.length }, { khmerWordTrie?.getCount(it) }))
+        result.sortWith(compareBy({ it.length }, { khmerWordTrie?.getCount(it)!! * -1 }))
         return result.toList()
 
     }
