@@ -1,6 +1,6 @@
 package com.namae0Two.khmeralternativekeyboard.view.list
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
 
 class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup, val listener: (Int) -> Unit) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.word_layout, parent, false)) {
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(inflater.inflate(R.layout.word_layout, parent, false)) {
 
     private var wordContent: TextView? = null
     private var contentParent: LinearLayout? = null

@@ -8,4 +8,5 @@
     <color name="colorKeyBackgroundDefaultClicked">#505050</color>
     <color name="colorKeyContentPrimaryDefault">#ffffff</color>
     <color name="colorKeyContentSecondaryDefault">#aaaaaa</color>
+    <color name="settingColor">#111111</color>
 </resources>

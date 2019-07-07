@@ -84,9 +84,7 @@ class KhmerLang {
                 "ែ",
                 "ៃ",
                 "ោ",
-                "ៅ",
-                "ំ"  //technically is diacritic due to it also act as vowel it is here
-
+                "ៅ"
         )
 
         //Khmer independent Vowels
@@ -119,7 +117,9 @@ class KhmerLang {
                 "៎", // Kakabat
                 "៏", // Ahsda
                 "័", // Samyok Sannya
-                "៑" // Viram
+                "៑", // Viram
+                "ំ"  //technically is diacritic due to it also act as vowel it is here
+
         )
 
         //diacritic after the character
@@ -176,6 +176,7 @@ class KhmerLang {
         val generateMap = fun(): Map<String, CharacterType> {
             val myMutableMap: MutableMap<String, CharacterType> = mutableMapOf()
 
+
             myMutableMap.putAll(consonant.associateWith { CharacterType.INDEPENDENT_ALPHABET })
 
             myMutableMap.putAll(base_vowels.associateWith { CharacterType.DEPENDENT_VOWEL })
@@ -186,7 +187,7 @@ class KhmerLang {
             myMutableMap.putAll(other_sign.associateWith { CharacterType.DIGITS_AND_SIGN })
             myMutableMap.putAll(khmer_digits.associateWith { CharacterType.DIGITS_AND_SIGN })
             myMutableMap.putAll(latin_digits.associateWith { CharacterType.DIGITS_AND_SIGN })
-
+            myMutableMap.put(SUBSCRIPT_SIGN, CharacterType.SUBSCRIPT_SIGN)
 
 
             return myMutableMap.toMap()
@@ -196,16 +197,34 @@ class KhmerLang {
         //Robat
         var ROBAT = "៌" //
 
-        var SUBSCRIPT_SIGN = "្"
+        var SUBSCRIPT_SIGN: String = "្"
 
-        val isInSpellingAlphabet = fun(char:String) :Boolean{
+        val isInSpellingAlphabet = fun(char: String): Boolean {
             val charType = character_to_type_map[char]
             return charType == CharacterType.AFTER_DIACRITIC ||
                     charType == CharacterType.ABOVE_DIACRITIC ||
                     charType == CharacterType.CONSONANT_SHIFTER ||
                     charType == CharacterType.INDEPENDENT_ALPHABET ||
-                    charType == CharacterType.DEPENDENT_VOWEL||
+                    charType == CharacterType.DEPENDENT_VOWEL ||
                     char == SUBSCRIPT_SIGN
+        }
+
+
+        val isIndependentAlphabet = fun(char: String): Boolean {
+            return character_to_type_map[char] == CharacterType.INDEPENDENT_ALPHABET
+        }
+
+        val isVowel = fun(char: String): Boolean {
+            return character_to_type_map[char] == CharacterType.DEPENDENT_VOWEL
+        }
+        val isConsonantShifter = fun(char: String): Boolean {
+            return character_to_type_map[char] == CharacterType.CONSONANT_SHIFTER
+        }
+        val isAboveDiacritic = fun(char: String): Boolean {
+            return character_to_type_map[char] == CharacterType.ABOVE_DIACRITIC
+        }
+        val isAfterDiacritic = fun(char: String): Boolean {
+            return character_to_type_map[char] == CharacterType.AFTER_DIACRITIC
         }
     }
 

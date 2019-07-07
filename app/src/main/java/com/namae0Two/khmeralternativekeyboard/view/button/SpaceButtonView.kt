@@ -1,7 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout

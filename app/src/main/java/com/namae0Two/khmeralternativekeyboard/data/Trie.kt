@@ -1,6 +1,9 @@
 package com.namae0Two.khmeralternativekeyboard.data
 
 import android.content.Context
+import com.namae0Two.khmeralternativekeyboard.database.DictionaryWord
+import com.namae0Two.khmeralternativekeyboard.database.DictionaryWordDatabase
+import com.namae0Two.khmeralternativekeyboard.database.ioThread
 
 class Trie(var root: TrieNode = TrieNode()) {
 
@@ -11,29 +14,40 @@ class Trie(var root: TrieNode = TrieNode()) {
             return Trie(searchNode)
         }
 
-        fun loadTrieFromAsset(context: Context?): Trie {
+//        fun loadTrieFromAsset(context: Context?): Trie {
+//            val trie = Trie()
+//
+//            context!!.assets.open("wordData.txt").bufferedReader().forEachLine {
+//
+//                val splitted = it.split("\t")
+//
+//                val word = splitted[0].trim()
+//
+//                if (word.isNotEmpty()) {
+//                    trie.addWord(word, splitted[1].toInt(), 0)
+//                }
+//            }
+//
+//
+//            return trie
+//        }
+
+        fun loadTrieFromDatabase(database: DictionaryWordDatabase): Trie {
             val trie = Trie()
-
-            context!!.assets.open("wordData.txt").bufferedReader().forEachLine {
-
-                val splitted = it.split("\t")
-
-                val word = splitted[0].trim()
-
-                if (word.isNotEmpty()) {
-                    trie.addWord(word, splitted[1].toInt())
+            ioThread {
+                database.dictionaryWordDao().getAll().forEach {
+                    trie.addWord(it)
                 }
             }
-
-
             return trie
         }
+
     }
 
     //Add Word to the Trie Structure
-    fun addWord(word: String, count: Int = 0) {
+    fun addWord(dictionaryWord: DictionaryWord) {
         var currentNode = root
-
+        val word = dictionaryWord.word!!
         for (i in 0 until word.length) {
 
             val character: String = word[i].toString()
@@ -49,7 +63,10 @@ class Trie(var root: TrieNode = TrieNode()) {
             currentNode = nextNode
         }
         currentNode.isWord = true
-        currentNode.count += count
+        currentNode.count += dictionaryWord.count
+        currentNode.usedCount = dictionaryWord.usedCount
+        currentNode.personal = dictionaryWord.personal
+        currentNode.id = dictionaryWord.wordId
 
     }
 
@@ -81,6 +98,51 @@ class Trie(var root: TrieNode = TrieNode()) {
         }
 
         return currentNode.count
+    }
+
+    fun getUsageCount(word: String): Int {
+        var currentNode = this.root
+
+        for (i in 0 until word.length) {
+            val character = word[i].toString()
+            if (!currentNode.children.containsKey(character)) {
+                return -1
+            }
+            currentNode = currentNode.children[character]!!
+        }
+
+        return currentNode.usedCount
+    }
+
+    fun getNode(word: String): TrieNode? {
+        var currentNode = this.root
+
+        for (i in 0 until word.length) {
+            val character = word[i].toString()
+            if (!currentNode.children.containsKey(character)) {
+                return null
+            }
+            currentNode = currentNode.children[character]!!
+        }
+        return currentNode
+    }
+
+    fun getDictionaryWord(word: String): DictionaryWord {
+        var currentNode = this.root
+
+        for (i in 0 until word.length) {
+            val character = word[i].toString()
+            if (!currentNode.children.containsKey(character)) {
+                return DictionaryWord(word = "")
+            }
+            currentNode = currentNode.children[character]!!
+        }
+
+        return DictionaryWord(wordId = currentNode.id
+                , word = currentNode.getWordFromNode(),
+                count = currentNode.count,
+                usedCount = currentNode.usedCount,
+                personal = currentNode.personal)
     }
 
     //check if the input word is a prefix to other word
@@ -159,9 +221,15 @@ class Trie(var root: TrieNode = TrieNode()) {
         return result.toList()
     }
 
-    class TrieNode(var character: String = "", var parent: TrieNode? = null, var isWord: Boolean = false) {
+    class TrieNode(var character: String = "",
+                   var parent: TrieNode? = null,
+                   var isWord: Boolean = false) {
 
-        var count: Int = -1
+        var count: Int = 0
+        var usedCount: Int = 0
+        var id: Long? = null
+        var personal: Int = 0 //0 = default data, 1 is user's input
+
         var children: MutableMap<String, TrieNode> = mutableMapOf()
 
 

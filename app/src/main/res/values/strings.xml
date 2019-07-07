@@ -4,4 +4,6 @@
     <string name="subtype_kh_KH">Khmer (KH)</string>
     <string name="double_quote_sign">\"</string>
     <string name="space_text">ខ្មែរ</string>
+    <string name="color_setting_icon">Setting Icon</string>
+    <string name="size_setting_icon">Size Setting Icon</string>
 </resources>

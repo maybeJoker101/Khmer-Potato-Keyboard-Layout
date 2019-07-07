@@ -1,5 +1,13 @@
 package com.namae0Two.khmeralternativekeyboard.khmer
 
+import android.util.Log
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.isAboveDiacritic
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.isAfterDiacritic
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.isConsonantShifter
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.isIndependentAlphabet
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.isVowel
+
 class KhmerWordCluster(var base: String = "") {
 
     var consonantShifter :String = ""
@@ -9,22 +17,7 @@ class KhmerWordCluster(var base: String = "") {
     var afterSign = ""
     private val  vowels:MutableList<String> = mutableListOf()
 
-    private val isIndependentAlphabet = fun(char:String):Boolean {
-        return KhmerLang.character_to_type_map[char] == CharacterType.INDEPENDENT_ALPHABET
-    }
 
-    private val isVowel = fun(char:String):Boolean {
-        return KhmerLang.character_to_type_map[char] == CharacterType.DEPENDENT_VOWEL
-    }
-    private val isConsonantShifter = fun(char:String):Boolean {
-        return KhmerLang.character_to_type_map[char] == CharacterType.CONSONANT_SHIFTER
-    }
-    private val isAboveDiacritic = fun(char:String):Boolean {
-        return KhmerLang.character_to_type_map[char] == CharacterType.ABOVE_DIACRITIC
-    }
-    private val isAfterDiacritic = fun(char:String):Boolean {
-        return KhmerLang.character_to_type_map[char] == CharacterType.AFTER_DIACRITIC
-    }
 
 
 
@@ -34,6 +27,7 @@ class KhmerWordCluster(var base: String = "") {
     // or when base is not set but other character is added as input
     fun addCharacter(char:String,isSubscript:Boolean):Boolean {
 
+        Log.d("KhmerCluser", "Adding $char")
         //Base Checking
         if (base.isEmpty()){
             //check if input is one of the independent alphabet
@@ -74,7 +68,7 @@ class KhmerWordCluster(var base: String = "") {
             }
 
             addAboveDiacritic(char)
-
+            return true
         }
         //after diacritic
         if(isAfterDiacritic(char)){

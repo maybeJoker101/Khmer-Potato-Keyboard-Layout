@@ -1,11 +1,11 @@
 package com.namae0Two.khmeralternativekeyboard.view.list
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.namae0Two.khmeralternativekeyboard.khmer.KhmerWord
 
-class WordListAdapter(val listener: (Int) -> Unit) : RecyclerView.Adapter<WordViewHolder>() {
+class WordListAdapter(val listener: (Int) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<WordViewHolder>() {
 
     val wordList: MutableList<String> = mutableListOf()
 

@@ -1,6 +1,73 @@
 package com.namae0Two.khmeralternativekeyboard.khmer
 
+import com.namae0Two.khmeralternativekeyboard.khmer.KhmerLang.Companion.character_to_type_map
+
 class KhmerWord(var inputWord: String = "") {
+
+    companion object {
+        fun isValidKhmerWord(word: String): Boolean {
+
+            if (!KhmerLang.isIndependentAlphabet(word[0].toString())) {
+                return false
+            }
+            var lastType: CharacterType = CharacterType.INDEPENDENT_ALPHABET
+            val charMap = KhmerLang.generateMap()
+            for (i in 1 until word.length) {
+                val character = word[i].toString()
+
+
+                when (lastType) {
+                    CharacterType.INDEPENDENT_ALPHABET -> {
+                        //if last character is independent
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.SUBSCRIPT_SIGN -> {
+                        //if subscript
+                        //if not contain consonant other than ឡ return false invalid
+                        if (!KhmerLang.consonant.contains(character) || character == "ឡ") {
+                            return false
+                        }
+                        if (charMap[character] == CharacterType.SUBSCRIPT_SIGN) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.DEPENDENT_VOWEL -> {
+                        if (charMap[character] == CharacterType.DEPENDENT_VOWEL) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.ABOVE_DIACRITIC -> {
+                        if (charMap[character] == CharacterType.ABOVE_DIACRITIC) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.AFTER_DIACRITIC -> {
+                        if (charMap[character] == CharacterType.AFTER_DIACRITIC) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.CONSONANT_SHIFTER -> {
+                        if (charMap[character] == CharacterType.CONSONANT_SHIFTER) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+                    CharacterType.DIGITS_AND_SIGN -> {
+                        if (charMap[character] == CharacterType.DIGITS_AND_SIGN) {
+                            return false
+                        }
+                        lastType = charMap.getValue(character)
+                    }
+
+                }
+            }
+            return true
+        }
+    }
 
     var wordClusters: MutableList<KhmerWordCluster> = mutableListOf()
 
@@ -8,6 +75,7 @@ class KhmerWord(var inputWord: String = "") {
         inputWord = inputWord.trim()
         generateClusters()
     }
+
 
     //generate clusters for the givens inputWord
     private fun generateClusters() {
@@ -29,7 +97,7 @@ class KhmerWord(var inputWord: String = "") {
             if (clusterIndex == -1) {
                 clusterIndex += 1
 
-                addCluster(character,isSubscript)
+                addCluster(character, false)
                 continue
             }
             ////////
@@ -45,10 +113,10 @@ class KhmerWord(var inputWord: String = "") {
             if (!wordClusters[clusterIndex].addCharacter(character, isSubscript)) {
                 //create new cluster
                 clusterIndex += 1
-                addCluster(character,isSubscript)
+                addCluster(character, isSubscript)
                 continue
 
-            }else {
+            } else {
                 //Reset is subscript
                 isSubscript = false
             }
@@ -61,7 +129,7 @@ class KhmerWord(var inputWord: String = "") {
 
     //add a new cluster to the array
     //used during generation
-    private fun addCluster(base:String,isSubscript:Boolean){
+    private fun addCluster(base: String, isSubscript: Boolean) {
         val cluster = KhmerWordCluster()
 
         if (cluster.addCharacter(base, isSubscript)) {
@@ -76,16 +144,16 @@ class KhmerWord(var inputWord: String = "") {
     //result might be different from the input
     // as it is subjected to subscript sorting and character ordering
 
-    fun getKhmerWord():String{
+    fun getKhmerWord(): String {
         var result = ""
-        for(cluster in wordClusters){
+        for (cluster in wordClusters) {
             result += cluster.getCluster()
         }
 
         return result
     }
 
-    fun addKhmerCharacterToWord(character:String ):KhmerWord{
+    fun addKhmerCharacterToWord(character: String): KhmerWord {
         val newWord = getKhmerWord() + character
 
         return KhmerWord(newWord)
