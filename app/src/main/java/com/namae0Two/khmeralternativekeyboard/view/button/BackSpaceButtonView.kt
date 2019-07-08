@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
+import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
@@ -29,11 +30,9 @@ class BackSpaceButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
 
 
         //Color
-        val resource = context!!.resources
-
-        textColor = ContextCompat.getColor(context, R.color.colorKeyContentPrimaryDefault)
-
-        textSize = resource.getInteger(R.integer.keyContentPrimarySizeNoUnit).toFloat()
+        textColor = Color.parseColor(viewConfig!!.buttonMiddleTextColor)
+        //text Size
+        textSize = viewConfig.buttonMainFontSize.toFloat()
 
         //View
         backSpaceContent = TextView(context)
@@ -61,8 +60,7 @@ class BackSpaceButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         addView(backSpaceContent)
 
         //Background
-        setBackgroundResource(R.color.colorKeyBackgroundDefault)
-
+        setBackgroundColor(backgroundColor)
     }
 
     class BackSpaceTouchListener : OnLongClickListener, OnTouchListener {

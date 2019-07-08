@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
+import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.*
@@ -8,6 +9,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.namae0Two.khmeralternativekeyboard.R
+import com.namae0Two.khmeralternativekeyboard.config.ViewConfig
 import com.namae0Two.khmeralternativekeyboard.data.ButtonData
 import com.namae0Two.khmeralternativekeyboard.util.Util
 import kotlin.math.atan2
@@ -50,12 +52,13 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         val resource = context!!.resources
         //dimensions
         startEndMargin = resource.getInteger(R.integer.leftAndRightKeyButtonMarginNoUnit).toFloat()
-        middleTextSize = resource.getInteger(R.integer.keyContentPrimarySizeNoUnit).toFloat()
-        otherTextSize = resource.getInteger(R.integer.keyContentSecondarySizeNoUnit).toFloat()
 
+
+        middleTextSize = viewConfig!!.buttonMainFontSize.toFloat()
+        otherTextSize = viewConfig.buttonOtherFontSize.toFloat()
         //color
-        middleColor = ContextCompat.getColor(context, R.color.colorKeyContentPrimaryDefault)
-        otherColor = ContextCompat.getColor(context, R.color.colorKeyContentSecondaryDefault)
+        middleColor = Color.parseColor(viewConfig.buttonMiddleTextColor)
+        otherColor = Color.parseColor(viewConfig.buttonOtherTextColor)
 
         //init TextView
         middleText = TextView(context)
@@ -95,8 +98,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         addView(bottomText)
         addView(leftText)
 
-        setBackgroundResource(R.color.colorKeyBackgroundDefault)
-
+        setBackgroundColor(backgroundColor)
 
     }
 

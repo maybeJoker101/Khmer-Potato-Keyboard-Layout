@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
+import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
@@ -27,14 +28,10 @@ class EnterButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int)
         lp.weight = buttonData.weight.toFloat()
         layoutParams = lp
 
-
         //Color
-        val resource = context!!.resources
-
-        textColor = ContextCompat.getColor(context, R.color.colorKeyContentPrimaryDefault)
-
-        textSize = resource.getInteger(R.integer.keyContentPrimarySizeNoUnit).toFloat()
-
+        textColor = Color.parseColor(viewConfig!!.buttonMiddleTextColor)
+        //text Size
+        textSize = viewConfig.buttonMainFontSize.toFloat()
         //View
         enterContent = TextView(context)
 
@@ -61,7 +58,7 @@ class EnterButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int)
         addView(enterContent)
 
         //Background
-        setBackgroundResource(R.color.colorKeyBackgroundDefault)
+        setBackgroundColor(backgroundColor)
 
     }
 

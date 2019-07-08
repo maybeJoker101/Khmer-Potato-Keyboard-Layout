@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.inputmethod.EditorInfo
@@ -21,6 +22,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.namae0Two.khmeralternativekeyboard.R
+import com.namae0Two.khmeralternativekeyboard.config.ViewConfig
 import com.namae0Two.khmeralternativekeyboard.data.ButtonType
 import com.namae0Two.khmeralternativekeyboard.data.KeyboardData
 import com.namae0Two.khmeralternativekeyboard.data.Trie
@@ -72,6 +74,8 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
 
     val ZERO_WIDTH_SPACE = "\u200b"
 
+    val viewConfig: ViewConfig
+
     init {
         id = generateViewId()
 
@@ -82,6 +86,8 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
 
         //Load Trie Data with application context
         databaseInstance = DictionaryWordDatabase.getInstance(inputService.applicationContext)
+
+        viewConfig = ViewConfig.getInstance(context)
 
         loadTrieData()
 
@@ -587,6 +593,21 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
                         possibleList.add(newPossible2)
 
                     }
+
+                    //two subscript subscript ordering
+                    if (KhmerWord.isValidKhmerWord(newPossible2)) {
+                        val newPossible3 = KhmerWord(newPossible2).getKhmerWord()
+                        Log.d("Possible Word", newPossible3)
+                        if (newPossible3 != newPossible2) {
+                            Log.d("Possible Word", "In IF")
+
+                            if (khmerWordTrie?.isPrefixOrWord(newPossible3)!!) {
+                                Log.d("Possible Word", "is prefix")
+
+                                possibleList.add(newPossible3)
+                            }
+                        }
+                    }
                 }
 
             }
@@ -640,6 +661,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
                                 possibleList.add(newPossible2)
 
                             }
+                            //two subscript subscript ordering
                             if (KhmerWord.isValidKhmerWord(newPossible2)) {
                                 val newPossible3 = KhmerWord(newPossible2).getKhmerWord()
                                 Log.d("Possible Word", newPossible3)

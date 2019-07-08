@@ -1,16 +1,18 @@
 package com.namae0Two.khmeralternativekeyboard.view.list
 
-import androidx.recyclerview.widget.RecyclerView
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.namae0Two.khmeralternativekeyboard.R
+import com.namae0Two.khmeralternativekeyboard.config.ViewConfig
 
 class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup, val listener: (Int) -> Unit) :
-        androidx.recyclerview.widget.RecyclerView.ViewHolder(inflater.inflate(R.layout.word_layout, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.word_layout, parent, false)) {
 
     private var wordContent: TextView? = null
     private var contentParent: LinearLayout? = null
@@ -23,6 +25,9 @@ class WordViewHolder(inflater: LayoutInflater, parent: ViewGroup, val listener: 
         border = itemView.findViewById(R.id.wordBorder)
 
         //color
+        val viewConfig = ViewConfig.getInstance(parent.context)
+        contentParent!!.setBackgroundColor(Color.parseColor(viewConfig.buttonBackgroundClickedColor))
+        border!!.setBackgroundColor(Color.parseColor(viewConfig.buttonMiddleTextColor))
     }
 
     fun bind(word: String, position: Int) {

@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.data
 
 import android.content.Context
+import com.namae0Two.khmeralternativekeyboard.config.ViewConfig
 import org.json.JSONObject
 
 class KeyboardData {
@@ -13,7 +14,9 @@ class KeyboardData {
                 it.readText()
             }
 
-            var keyboardData = KeyboardData()
+            val viewConfig = ViewConfig.getInstance(context)
+
+            val keyboardData = KeyboardData()
 //Keyboard
             val keyboardJsonObjects = JSONObject(jsonString)
 //            Rows
@@ -23,7 +26,7 @@ class KeyboardData {
                 //each row
                 val rowJsonObject = keyboardRows.getJSONObject(rowIndex)
 
-                var rowData = RowData(rowJsonObject.getInt("height"))
+                val rowData = RowData(viewConfig.buttonHeight)
 
                 val rowButtons = rowJsonObject.getJSONArray("buttons")
 

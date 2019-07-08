@@ -1,6 +1,7 @@
 package com.namae0Two.khmeralternativekeyboard.view.button
 
 import android.content.Context
+import android.graphics.Color
 import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
@@ -28,12 +29,11 @@ class SpaceButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int)
         layoutParams = lp
 
 
+
         //Color
-        val resource = context!!.resources
-
-        textColor = ContextCompat.getColor(context, R.color.colorKeyContentPrimaryDefault)
-
-        textSize = resource.getInteger(R.integer.keyContentPrimarySizeNoUnit).toFloat()
+        textColor = Color.parseColor(viewConfig!!.buttonMiddleTextColor)
+        //text Size
+        textSize = viewConfig.buttonMainFontSize.toFloat()
 
         //View
         spaceText = TextView(context)
@@ -61,7 +61,7 @@ class SpaceButtonView(context: Context?, buttonData: ButtonData, rowHeight: Int)
         addView(spaceText)
 
         //Background
-        setBackgroundResource(R.color.colorKeyBackgroundDefault)
+        setBackgroundColor(backgroundColor)
 
     }
 
