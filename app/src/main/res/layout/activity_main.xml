@@ -13,8 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="350dp"
-        android:text="កំណត់ពណ៌"
-        android:textColor="@color/settingColor"
+        android:text="@string/colorSetting"
+        android:onClick="onColorTextClicked"
+
+        android:textColor="@drawable/setting_drawable"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,9 +61,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="កំណត់ទំហំ"
-        android:textColor="@color/settingColor"
+        android:text="@string/sizeSetting"
+        android:textColor="@drawable/setting_drawable"
         android:textSize="32sp"
+        android:onClick="onSizeTextClicked"
+
         app:layout_constraintStart_toStartOf="@+id/colorSettingContent"
         app:layout_constraintTop_toBottomOf="@+id/colorSettingContent" />
 
@@ -70,9 +74,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="ពាក្យនៅវចនានុក្រម"
-        android:textColor="@color/settingColor"
+        android:text="@string/dictionary"
+        android:textColor="@drawable/setting_drawable"
         android:textSize="32sp"
+        android:onClick="onDictionaryTextClicked"
+
         app:layout_constraintStart_toStartOf="@+id/sizeSettingContent"
         app:layout_constraintTop_toBottomOf="@+id/sizeSettingContent" />
 
@@ -81,10 +87,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Credits"
-        android:textColor="@color/settingColor"
+        android:text="@string/credits"
+        android:textColor="@drawable/setting_drawable"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:onClick="onCreditClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,4 +6,8 @@
     <string name="space_text">ខ្មែរ</string>
     <string name="color_setting_icon">Setting Icon</string>
     <string name="size_setting_icon">Size Setting Icon</string>
+    <string name="colorSetting"><u>កំណត់ពណ៌</u></string>
+    <string name="sizeSetting"><u>កំណត់ទំហំ</u></string>
+    <string name="dictionary"><u>ពាក្យនៅវចនានុក្រម</u></string>
+    <string name="credits">Credits</string>
 </resources>

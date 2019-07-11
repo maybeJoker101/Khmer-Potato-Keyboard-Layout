@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popUpParentLayout"
         android:layout_width="100dp"
         android:layout_height="100dp">
 

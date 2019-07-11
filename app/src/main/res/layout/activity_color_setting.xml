@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.maybejoker101.khmerpotatokeyboard.activity.ColorSettingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textMiddleColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:onClick="changeMiddleTextColor"
+            android:padding="8dp"
+            android:text="ពណ៌អក្សនៅកណ្ដាល"
+            android:textColor="@color/colorKeyBackgroundDefault"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textOtherColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="changeOtherTextColor"
+            android:padding="8dp"
+            android:text="ពណ៌អក្សនៅខាង"
+
+            android:textColor="@color/colorKeyBackgroundDefault"
+            android:textSize="24sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMiddleColorTextView" />
+
+        <TextView
+            android:id="@+id/textKeyBackgroundColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="changeKeyBackgroundColor"
+            android:padding="8dp"
+            android:text="ពណ៌ផ្ទៃខាងក្រោយរបស់ក្ដាចុច"
+
+            android:textColor="@color/colorKeyBackgroundDefault"
+            android:textSize="24sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textOtherColorTextView" />
+
+        <TextView
+            android:id="@+id/textKeyBackgroundClickedColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="changeKeyBackgroundClickedColor"
+            android:padding="8dp"
+            android:text="ពណ៌ផ្ទៃខាងក្រោយរបស់ពេលចុច"
+            android:textColor="@color/colorKeyBackgroundDefault"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textKeyBackgroundColorTextView" />
+
+
+        <TextView
+            android:id="@+id/textPopupBackgroundColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="changePopupBackgroundColor"
+            android:padding="8dp"
+            android:text="ពណ៌ផ្ទៃខាងក្រោយរបស់ក្ដាផុស​ឡើង"
+            android:textColor="@color/colorKeyBackgroundDefault"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textKeyBackgroundClickedColor" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/frame_border"
+            android:onClick="changeMiddleTextColor"
+            app:layout_constraintBottom_toBottomOf="@+id/textMiddleColorTextView"
+            app:layout_constraintStart_toEndOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintTop_toTopOf="@+id/textMiddleColorTextView">
+
+            <View
+                android:id="@+id/viewTextMiddleColor"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="1dp"
+
+                android:background="@color/colorKeyBackgroundDefault" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/frame_border"
+
+            android:onClick="changeOtherTextColor"
+            app:layout_constraintBottom_toBottomOf="@+id/textOtherColorTextView"
+            app:layout_constraintStart_toEndOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintTop_toTopOf="@+id/textOtherColorTextView">
+
+            <View
+                android:id="@+id/viewTextOtherColor"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="1dp"
+
+                android:background="@color/colorKeyBackgroundDefault" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/frame_border"
+
+            android:onClick="changeKeyBackgroundColor"
+            app:layout_constraintBottom_toBottomOf="@+id/textKeyBackgroundColorTextView"
+            app:layout_constraintStart_toEndOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintTop_toTopOf="@+id/textKeyBackgroundColorTextView">
+
+            <View
+                android:id="@+id/viewTextKeyBackgroundColor"
+                android:layout_width="24dp"
+
+                android:layout_height="24dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorKeyBackgroundDefault" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/frame_border"
+            android:onClick="changeKeyBackgroundClickedColor"
+
+            app:layout_constraintBottom_toBottomOf="@+id/textKeyBackgroundClickedColor"
+            app:layout_constraintStart_toEndOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintTop_toTopOf="@+id/textKeyBackgroundClickedColor">
+
+            <View
+                android:id="@+id/viewTextKeyBackgroundClickedColor"
+
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorKeyContentPrimaryDefault" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/frame_border"
+
+            android:onClick="changePopupBackgroundColor"
+            app:layout_constraintBottom_toBottomOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintStart_toEndOf="@+id/textPopupBackgroundColor"
+            app:layout_constraintTop_toTopOf="@+id/textPopupBackgroundColor">
+
+            <View
+                android:id="@+id/viewPopupBackgroundColor"
+                android:layout_width="24dp"
+
+                android:layout_height="24dp"
+                android:layout_margin="1dp"
+                android:background="@color/colorKeyBackgroundDefault" />
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="128dp"
+            android:elevation="10dp"
+            app:cardBackgroundColor="@color/colorKeyBackgroundDefaultClicked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPopupBackgroundColor">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/popUpParentLayout"
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+
+                <TextView
+                    android:id="@+id/popup_middle_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ក"
+                    android:textColor="@color/colorKeyContentPrimaryDefault"
+                    android:textSize="@dimen/popup_middleBigSize"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/popup_middle_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ក"
+                    android:textColor="@color/colorKeyContentPrimaryDefault"
+                    android:textSize="@dimen/popup_middleNormalSize"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/popup_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="ខ"
+                    android:textColor="@color/colorKeyContentSecondaryDefault"
+                    android:textSize="@dimen/popup_otherTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/popup_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="គ"
+                    android:textColor="@color/colorKeyContentSecondaryDefault"
+                    android:textSize="@dimen/popup_otherTextSize"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/popup_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="ឃ"
+                    android:textColor="@color/colorKeyContentSecondaryDefault"
+                    android:textSize="@dimen/popup_otherTextSize"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/popup_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/popup_marginStartEnd"
+                    android:text="ង"
+                    android:textColor="@color/colorKeyContentSecondaryDefault"
+                    android:textSize="@dimen/popup_otherTextSize"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/characterButtonFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toStartOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cardView">
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
