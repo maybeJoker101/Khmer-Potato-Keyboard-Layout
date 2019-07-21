@@ -105,14 +105,14 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
         popupMiddleColor = Color.parseColor(viewConfig.buttonMiddleTextColor)
         popupOtherColor = Color.parseColor(viewConfig.buttonOtherTextColor)
 
-
+        val popupWidthHeight = Util.getPixelFromDp(viewConfig.popupHeightAndWidth, context)
 
 
         val measureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         popupView.measure(measureSpec, measureSpec)
         popupWindows = PopupWindow(context)
-        popupWindows.width = popupView.measuredWidth
-        popupWindows.height = popupView.measuredHeight
+        popupWindows.width = popupWidthHeight
+        popupWindows.height = popupWidthHeight
         popupWindows.contentView = popupView
 
         popupWindows.isClippingEnabled = false
@@ -176,7 +176,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
     }
 
     fun buildPossibleWordRecycleView() {
-        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
+        val recycleViewHeight = context.resources.getDimension(R.dimen.composingAndWordBarHeight).toInt()
         val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
         val recycleViewParams = LinearLayout.LayoutParams(MATCH_PARENT, recycleViewHeight)
         possibleWordRecycleView.setHasFixedSize(true)
@@ -195,7 +195,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
     }
 
     fun buildComposingWordRecycleView() {
-        val recycleViewHeight = context.resources.getDimension(R.dimen.keyDefaultHeight).toInt()
+        val recycleViewHeight = context.resources.getDimension(R.dimen.composingAndWordBarHeight).toInt()
         val layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
         val recycleViewParams = LinearLayout.LayoutParams(MATCH_PARENT, recycleViewHeight)
         composingWordRecycleView.setHasFixedSize(true)
@@ -710,7 +710,11 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
 
     fun commitComposingText() {
         val inputConnection = inputService.currentInputConnection
-        insertOrUpdateCommitedComposingText(composingText)
+
+        //check length of current composing text if it is bigger than one try to insert
+        if (composingText.length != 1) {
+            insertOrUpdateCommitedComposingText(composingText)
+        }
         inputConnection.finishComposingText()
         //add zero space
         inputConnection.commitText(ZERO_WIDTH_SPACE, 1)
@@ -729,7 +733,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
             ioThread {
                 databaseInstance.dictionaryWordDao().upsert(dictionaryWord)
             }
-            Toast.makeText(context, "Increase Count", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Increase Count", Toast.LENGTH_SHORT).show()
 
         } else {
             Log.d("WOrd", word)
@@ -743,7 +747,7 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
                 }
                 composingText = khmerWord
             } else {
-                Toast.makeText(context, "Invalid KhmerWOrd", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(context, "Invalid KhmerWOrd", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -823,7 +827,6 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
 
                     //check if current char is in spelling alphabet if not break the loop
                     if (!KhmerLang.isInSpellingAlphabet(char.toString())) {
-                        startIndex = i
 
                         break
                     }
@@ -844,12 +847,13 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
                     val textToBeComposing = textBeforeCursor.substring(startIndex, maxIndex).trim()
                     //delete the number of character text including the one being add to composing
                     if (textToBeComposing.isEmpty()) {
+                        currentInput.deleteSurroundingText(2, 0)
 
                         return
                     } else {
+
                         if (textToBeComposing.length == 1 && textToBeComposing == ZERO_WIDTH_SPACE) {
                             currentInput.deleteSurroundingText(2, 0)
-
                             return
                         }
                     }
@@ -966,10 +970,9 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
         val viewWidth = view.width
         val parentWidth = this.width
 
-        Log.d(DEBUG_TAG, "x = " + viewX + " y = " + viewY + " width = " + viewWidth + " Parent = " + parentWidth)
 
         var x = viewX + (view.width - popupWindows.width) / 2
-        val y = viewY - Util.getPixelFromDp(100, context)
+        val y = viewY - Util.getPixelFromDp(viewConfig.popupHeightAndWidth + 5, context)
 
         if (x < 0) {
             x = 0

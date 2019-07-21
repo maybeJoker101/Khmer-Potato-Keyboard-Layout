@@ -14,7 +14,7 @@
         android:textColor="@color/colorKeyContentPrimaryDefault"
         android:layout_marginStart="@dimen/popup_marginStartEnd"
         android:layout_marginEnd="@dimen/popup_marginStartEnd"
-        android:layout_height="@dimen/keyDefaultHeight" />
+        android:layout_height="match_parent" />
 
     <View
         android:id="@+id/wordBorder"

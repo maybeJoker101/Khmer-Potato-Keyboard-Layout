@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NavUtils
 import com.azeesoft.lib.colorpicker.ColorPickerDialog
 import com.maybejoker101.khmerpotatokeyboard.R
 import com.maybejoker101.khmerpotatokeyboard.config.SharePref
@@ -213,5 +215,15 @@ class ColorSettingActivity : AppCompatActivity() {
 
         sharePref.edit().putString(preference, newValue).apply()
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

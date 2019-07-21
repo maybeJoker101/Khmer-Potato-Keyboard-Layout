@@ -20,7 +20,7 @@ class ViewConfig(
         var popupPressedTextSize: Int = 24,
         var popupOtherTextSize: Int = 16,
         var popupHeightAndWidth: Int = 100,
-        var popupBackGroundColor: String = "#aaaaaa") {
+        var popupBackGroundColor: String = "#505050") {
 
 
     companion object : SingletonHolder<ViewConfig, Context>({

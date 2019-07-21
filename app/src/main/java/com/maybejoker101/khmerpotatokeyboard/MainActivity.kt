@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.maybejoker101.khmerpotatokeyboard.activity.ColorSettingActivity
+import com.maybejoker101.khmerpotatokeyboard.activity.DictionaryActivity
+import com.maybejoker101.khmerpotatokeyboard.activity.SizeSettingActivity
 import com.maybejoker101.khmerpotatokeyboard.config.ViewConfig
 import com.maybejoker101.khmerpotatokeyboard.database.DictionaryWordDatabase
 import com.maybejoker101.khmerpotatokeyboard.database.ioThread
@@ -33,18 +35,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onColorTextClicked(view: View) {
-        val intent: Intent = Intent(applicationContext, ColorSettingActivity::class.java)
+        val intent = Intent(applicationContext, ColorSettingActivity::class.java)
 
         startActivity(intent)
 
     }
 
     fun onSizeTextClicked(view: View) {
+        val intent = Intent(applicationContext, SizeSettingActivity::class.java)
+
+        startActivity(intent)
 
     }
 
     fun onDictionaryTextClicked(view: View) {
+        val intent = Intent(applicationContext, DictionaryActivity::class.java)
 
+        startActivity(intent)
     }
 //    override fun onStop() {
 ////        Log.d("Filling", "Deleting Database")

@@ -97,10 +97,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wordInDictionary" />
 
-    <EditText
-        android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dictionarySettingIcon" />
+    <!--<EditText-->
+    <!--android:id="@+id/placeholder"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/dictionarySettingIcon" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ class KhmerKeyboardService : InputMethodService() {
         mKeyboardLayout = KeyboardView(applicationContext, this)
 
         if (sharePref == null) {
-            prefListener = SharedPreferences.OnSharedPreferenceChangeListener { pref, key ->
+            prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
                 run {
                     setInputView(onCreateInputView())
                 }
@@ -49,7 +49,9 @@ class KhmerKeyboardService : InputMethodService() {
         outInsets.contentTopInsets = mKeyboardLayout!!.keyboardContent.top
     }
 
-
+    override fun onEvaluateFullscreenMode(): Boolean {
+        return false
+    }
     override fun onDestroy() {
         sharePref!!.unregisterOnSharedPreferenceChangeListener(prefListener)
         super.onDestroy()

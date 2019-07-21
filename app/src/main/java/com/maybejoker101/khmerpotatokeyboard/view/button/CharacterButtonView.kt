@@ -66,6 +66,14 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         leftText = TextView(context)
 
         //Set TextView Params
+
+        middleText.id = View.generateViewId()
+        topText.id = View.generateViewId()
+        rightText.id = View.generateViewId()
+        bottomText.id = View.generateViewId()
+        leftText.id = View.generateViewId()
+
+
         //Text
         middleText.text = buttonData.middle
         topText.text = buttonData.top
@@ -121,6 +129,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         topParams.startToStart = id
         topParams.topToTop = id
         topParams.endToEnd = id
+        topParams.bottomToTop = middleText.id
         topParams.topMargin = startEndMargin.toInt()
 
         //Right
@@ -128,6 +137,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         rightParams.topToTop = id
         rightParams.endToEnd = id
         rightParams.bottomToBottom = id
+        rightParams.startToEnd = middleText.id
         rightParams.marginEnd = startEndMargin.toInt()
 
         //Bottom
@@ -135,6 +145,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         bottomParams.startToStart = id
         bottomParams.endToEnd = id
         bottomParams.bottomToBottom = id
+        bottomParams.topToBottom = middleText.id
         bottomParams.bottomMargin = startEndMargin.toInt()
 
 
@@ -143,6 +154,7 @@ class CharacterButtonView(context: Context?, buttonData: ButtonData, rowHeight: 
         leftParams.startToStart = id
         leftParams.topToTop = id
         leftParams.bottomToBottom = id
+        leftParams.endToStart = middleText.id
         leftParams.marginStart = startEndMargin.toInt()
 
     }

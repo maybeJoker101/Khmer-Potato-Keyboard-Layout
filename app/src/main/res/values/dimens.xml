@@ -8,6 +8,8 @@
     <dimen name="popup_otherTextSize">16sp</dimen>
     <dimen name="popup_middleNormalSize">20sp</dimen>
     <dimen name="popup_middleBigSize">24sp</dimen>
+    <dimen name="composingAndWordBarHeight">30dp</dimen>
+
 
     <integer name="keyContentPrimarySizeNoUnit">16</integer>
     <integer name="keyContentSecondarySizeNoUnit">10</integer>

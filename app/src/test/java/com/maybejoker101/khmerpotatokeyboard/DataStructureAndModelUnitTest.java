@@ -141,16 +141,6 @@ public class DataStructureAndModelUnitTest {
 
         Trie trie = new Trie();
 
-        trie.addWord(word0, 1);
-        trie.addWord(word1, 1);
-        trie.addWord(word2, 1);
-        trie.addWord(word3, 1);
-        trie.addWord(word4, 1);
-        trie.addWord(word5, 1);
-        trie.addWord(word6, 1);
-        trie.addWord(word7, 1);
-        trie.addWord(word8, 1);
-        trie.addWord(word9, 1);
 
         ///Allword
         assertEquals(trie.getAllWords().size(), 10);

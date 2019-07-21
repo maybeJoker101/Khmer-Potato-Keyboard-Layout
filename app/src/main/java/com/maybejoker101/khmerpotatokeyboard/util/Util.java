@@ -1,7 +1,10 @@
 package com.maybejoker101.khmerpotatokeyboard.util;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import static android.util.DisplayMetrics.DENSITY_DEFAULT;
 
 public class Util {
 
@@ -16,5 +19,8 @@ public class Util {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 
+    public static int getDpFromPixel(int pixel, Context context) {
+        return pixel / context.getResources().getDisplayMetrics().densityDpi / DENSITY_DEFAULT;
+    }
 
 }

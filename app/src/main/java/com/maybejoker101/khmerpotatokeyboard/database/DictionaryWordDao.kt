@@ -8,6 +8,9 @@ interface DictionaryWordDao {
     @Query("SELECT * FROM dictionary_words")
     fun getAll(): List<DictionaryWord>
 
+    @Query("SELECT * FROM dictionary_words WHERE personal = 1")
+    fun getAllUserWord(): List<DictionaryWord>
+
     @Insert
     fun insertAll(vararg words: DictionaryWord)
 
