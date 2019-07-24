@@ -126,7 +126,7 @@ class ColorSettingActivity : AppCompatActivity() {
     }
 
     fun changeKeyBackgroundColor(v: View?) {
-        showColorPickerDialog(viewConfig!!.popupBackGroundColor, SharePref.BUTTON_BACKGROUND_COLOR)
+        showColorPickerDialog(viewConfig!!.buttonBackgroundColor, SharePref.BUTTON_BACKGROUND_COLOR)
 
     }
 
@@ -193,7 +193,7 @@ class ColorSettingActivity : AppCompatActivity() {
 
             }
             SharePref.BUTTON_BACKGROUND_COLOR -> {
-                viewConfig!!.popupBackGroundColor = newValue
+                viewConfig!!.buttonBackgroundColor = newValue
                 keyBackgroundColorView!!.setBackgroundColor(parseColor)
                 keyButton!!.setBackgroundColor(parseColor)
             }

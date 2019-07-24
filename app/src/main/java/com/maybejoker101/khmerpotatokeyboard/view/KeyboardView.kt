@@ -943,12 +943,25 @@ class KeyboardView(context: Context, val inputService: InputMethodService) : and
         val popupBottom = popupView.findViewById<TextView>(R.id.popup_bottom)
         val popupLeft = popupView.findViewById<TextView>(R.id.popup_left)
 
+        //size
+        val middleSize = viewConfig.popupMiddleTextSize.toFloat()
+        val holdMiddleSize = viewConfig.popupPressedTextSize.toFloat()
+        val otherSize = viewConfig.popupOtherTextSize.toFloat()
+
         middleBig.setTextColor(popupMiddleColor!!)
-        popupMiddlePrimary.setTextColor(popupMiddleColor!!)
+        popupMiddlePrimary.setTextColor(popupMiddleColor)
         popupTop.setTextColor(popupOtherColor!!)
-        popupRight.setTextColor(popupOtherColor!!)
-        popupBottom.setTextColor(popupOtherColor!!)
-        popupLeft.setTextColor(popupOtherColor!!)
+        popupRight.setTextColor(popupOtherColor)
+        popupBottom.setTextColor(popupOtherColor)
+        popupLeft.setTextColor(popupOtherColor)
+
+        middleBig.textSize = holdMiddleSize
+        popupMiddlePrimary.textSize = middleSize
+        popupTop.textSize = otherSize
+        popupBottom.textSize = otherSize
+        popupRight.textSize = otherSize
+        popupLeft.textSize = otherSize
+
 
     }
 

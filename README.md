@@ -4,3 +4,7 @@ A keyboard layout for Khmer language using the advantage of touchscreen device. 
 
 There was study previously done on A word-based predictive text entry method for Khmer language.
 https://ieeexplore.ieee.org/document/4583032/figures#figures
+
+
+#Screenshort
+![alt text](https://i.ibb.co/bHtyYLx/qwqwe.png)

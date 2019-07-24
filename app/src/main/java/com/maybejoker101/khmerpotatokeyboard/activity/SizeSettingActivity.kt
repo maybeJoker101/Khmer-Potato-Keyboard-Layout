@@ -235,8 +235,6 @@ class SizeSettingActivity : AppCompatActivity() {
                 viewConfig!!.popupMiddleTextSize = textSize
                 viewConfig!!.popupPressedTextSize = textSize + 4
                 popupMiddleText!!.textSize = sizeFloat
-
-
             }
             SharePref.POPUP_OTHER_TEXT_SIZE -> {
                 viewConfig!!.popupOtherTextSize = textSize
