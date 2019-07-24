@@ -6,5 +6,6 @@ There was study previously done on A word-based predictive text entry method for
 https://ieeexplore.ieee.org/document/4583032/figures#figures
 
 
-#Screenshort
+#Screenshot
+
 ![alt text](https://i.ibb.co/bHtyYLx/qwqwe.png)
